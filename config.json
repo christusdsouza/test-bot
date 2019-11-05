@@ -1,5 +1,5 @@
 {
-	"token" : process.env.token,
+	
 	"prefix" : "/",
 	"clientID" : "507797397640839170",
 	"inviteA" : "2ZEgkuN", 
