@@ -85,4 +85,4 @@ client.on("message", async message => {
 		message.channel.send('There was an error trying to execute that command! OR This command doesnt exist.');
 } 
 });
-client.login(config.token);
+client.login(process.env.token);
