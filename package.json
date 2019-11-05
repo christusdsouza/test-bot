@@ -1,6 +1,7 @@
 {
   "name": "zebot",
   "version": "1.0.0",
+  "start": "bot.js",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
