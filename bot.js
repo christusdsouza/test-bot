@@ -49,7 +49,12 @@ const os = require("os");
 console.log(Discord.version);
 client.on("message", async message => {
   // This event will run on every single message received, from any channel or DM.
-  
+  const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  let BOTchan = client.channels.get(`569190661081923612`);
+  let dUser = client.users.get(`295483659274944512`);
+  dUser.send("<@295483659274944512>");
+  BOTchan.send("<@295483659274944512>");
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   //if(message.author.bot) return;
@@ -68,8 +73,6 @@ client.on("message", async message => {
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
   // args = ["Is", "this", "the", "real", "life?"]
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
   if(message.content.indexOf(config.prefix)  != 0) return;
   
   // Let's go with a few common example commands! Feel free to delete or change those.
