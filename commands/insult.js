@@ -12,12 +12,12 @@ module.exports= {
 		  {
 				var item =  args.join(" ");
 				insult.push(item);
-				console.log("Edited: "+insult);
+				//console.log("Edited: "+insult);
 				return message.channel.send("ADDED MF");
 		  }
 		  return message.channel.send("You are adding nothing to the list MF, bleach your eyes ffs its ADD");
 	  } 
-	  console.log("FINAL: "+insult);
+	  //console.log("FINAL: "+insult);
 	  if(!args[0])
 		return message.reply(insult[rand]);
 	  else
