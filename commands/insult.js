@@ -17,9 +17,9 @@ module.exports= {
 		  }
 		  return message.channel.send("You are adding nothing to the list MF, bleach your eyes ffs its ADD");
 	  } 
+	  console.log("FINAL: "+insult);
 	  if(!args[0])
 		return message.reply(insult[rand]);
 	  else
 		return message.channel.send(args.join(' ')+" "+insult[rand]);
-	  console.log("FINAL: "+insult);
 }};
