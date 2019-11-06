@@ -12,7 +12,7 @@ module.exports= {
 		  {
 				var item =  args.join(" ");
 				insult.push(item);
-				console.log(insult);
+				console.log("Edited: "+insult);
 				return message.channel.send("ADDED MF");
 		  }
 		  return message.channel.send("You are adding nothing to the list MF, bleach your eyes ffs its ADD");
@@ -21,4 +21,5 @@ module.exports= {
 		return message.reply(insult[rand]);
 	  else
 		return message.channel.send(args.join(' ')+" "+insult[rand]);
+	  console.log("FINAL: "+insult);
 }};
