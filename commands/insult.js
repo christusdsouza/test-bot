@@ -2,7 +2,7 @@ const insult = ["FUCK U PUTANG INA MO BOBO","Why now? YOU FUCK OFF YOU DUMB MOTH
 module.exports= {
 	execute(message,args,config){
 		
-	  len = config.insult.length;
+	  len = insult.length;
 	  var rand = Math.floor((Math.random() * 10) % len);
 	  var item = "";	
 	  if(args[0] == "add")
