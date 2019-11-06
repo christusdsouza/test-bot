@@ -2,9 +2,11 @@
 // Load up the discord.js library discord.js 11.5.1
 const Discord = require("discord.js");
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
-
+require("dotenv/config");
+//const http = require("http");
+//const port = 3000;
 const client = new Discord.Client();
-// This is your client. Some people call it `bot`, some people call it `self`, 
+//g This is your client. Some people call it `bot`, some people call it `self`, 
 // some might call it `cootchie`. Either way, when you see `client.something`, or `bot.something`,
 // this is what we're refering to. Your client.
 const fs = require('fs');

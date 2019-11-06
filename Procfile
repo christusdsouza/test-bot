@@ -1,1 +1,1 @@
-worker: node bot.js
+worker: npx nodemon bot.js
