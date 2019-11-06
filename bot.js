@@ -46,14 +46,13 @@ client.on("guildDelete", guild => {
   client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
 const os = require("os");
-//var insult = ["FUCK U PUTANG INA MO BOBO","Why now? YOU FUCK OFF YOU DUMB MOTHERFUCKER!! I'm sick of sad, whacko Billy No-Mates telling me to fuck off. Get a fucking life you weird piece of worthless shit. Ugh."];
 console.log(Discord.version);
 client.on("message", async message => {
   // This event will run on every single message received, from any channel or DM.
   
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
-  if(message.author.bot) return;
+  //if(message.author.bot) return;
   //message.react('637727531709104136');
   // Also good practice to ignore any message that does not start with our prefix, 
   // which is set in the configuration file.
