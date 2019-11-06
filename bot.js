@@ -88,6 +88,6 @@ client.on("message", async message => {
 		message.channel.send('There was an error trying to execute that command! OR This command doesnt exist.');
 } 
 });
-bot.on("error", err => {
+client.on("error", err => {
 	console.log(err); });
 client.login(process.env.token);
