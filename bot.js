@@ -4,7 +4,7 @@ const Discord = require("discord.js");
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
 require("dotenv/config");
 const http = require("http");
-const port = 3000;
+const port = process.env.PORT || 3000;
 http.createServer().listen(port);
 const client = new Discord.Client();
 // This is your client. Some people call it `bot`, some people call it `self`, 
