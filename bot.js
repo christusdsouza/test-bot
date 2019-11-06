@@ -58,7 +58,6 @@ client.on("message", async message => {
   // which is set in the configuration file.
   //if(message.content.indexOf(config.prefix) !== 0) return;
    var c = message.channel.name;
-   console.log(c);
   var user = message.author.username;
   var date = "["+d.format(new Date(), 'DD/MM/YYYY HH:mm:ss')+'] @'+c+' '+user+' : ';
   fs.appendFileSync("log.txt",os.EOL+date+message.content);
