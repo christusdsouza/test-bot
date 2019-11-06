@@ -1,4 +1,4 @@
-//import date-and-time
+//import datete-and-time
 // Load up the discord.js library discord.js 11.5.1
 const Discord = require("discord.js");
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
