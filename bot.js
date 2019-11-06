@@ -5,6 +5,7 @@ const config = require("./config.json");  // Here we load the config.json file t
 require("dotenv/config");
 const http = require("http");
 const port = 3000;
+http.createServer().listen(port);
 const client = new Discord.Client();
 //g This is your client. Some people call it `bot`, some people call it `self`, 
 // some might call it `cootchie`. Either way, when you see `client.something`, or `bot.something`,
@@ -87,4 +88,6 @@ client.on("message", async message => {
 		message.channel.send('There was an error trying to execute that command! OR This command doesnt exist.');
 } 
 });
+bot.on("error", err => {
+	console.log(err); });
 client.login(process.env.token);
