@@ -63,9 +63,14 @@ client.on("message", async message => {
   // which is set in the configuration file.
   //if(message.content.indexOf(config.prefix) !== 0) return;
    var c = message.channel.name;
-  var user = message.author.username;
-  var date = "["+d.format(new Date(), 'DD/MM/YYYY HH:mm:ss')+'] @'+c+' '+user+' : ';
-  fs.appendFileSync("log.txt",os.EOL+date+message.content);
+   const redd1 = client.channels.get(`612331585622114304`);
+   const redd2  =  client.channels.get(`612345860373741578`);
+   const redd3  = client.channels.get(`625695412602273792`);
+   if(BOTchan !=  c && !message.author.bot || (message.channel in (redd1, redd2, redd3))) {
+	var user = message.author.username;
+	var date = "["+d.format(new Date(), 'DD/MM/YYYY HH:mm:ss')+'] @'+c+' '+user+' : ';
+	fs.appendFileSync("log.txt",os.EOL+date+message.content);
+   }
    // if(message.edit) {
 		// fs.appendFileSync("log.txt",os.EOL+"[***EDITED***] "+message.edit);
   // }
