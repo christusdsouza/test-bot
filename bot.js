@@ -2,6 +2,7 @@
 // Load up the discord.js library discord.js 11.5.1
 const Discord = require("discord.js");
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
+const log = require('./logger.js');
 require("dotenv/config");
 const http = require("http");
 const port = process.env.PORT || 3000;
@@ -45,43 +46,30 @@ client.on("guildDelete", guild => {
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
   client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
-const os = require("os");
 console.log(Discord.version);
 client.on("message", async message => {
   // This event will run on every single message received, from any channel or DM.
+  // Here we separate our "command" name, and our "arguments" for the command. 
+  // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
+  // command = say
+  // args = ["Is", "this", "the", "real", "life?"]
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   let BOTchan = client.channels.get(`569190661081923612`);
   let dUser = client.users.get(`295483659274944512`);
   dUser.send("<@295483659274944512>");
   BOTchan.send("<@295483659274944512>");
+  log.execute(message,client,BOTchan,d);
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   //if(message.author.bot) return;
   //message.react('637727531709104136');
   // Also good practice to ignore any message that does not start with our prefix, 
   // which is set in the configuration file.
-  //if(message.content.indexOf(config.prefix) !== 0) return;
-   var c = message.channel.name;
-   const redd1 = client.channels.get(`612331585622114304`);
-   const redd2  =  client.channels.get(`612345860373741578`);
-   const redd3  = client.channels.get(`625695412602273792`);
-   if(BOTchan !=  c && !message.author.bot || (message.channel in (redd1, redd2, redd3))) {
-	var user = message.author.username;
-	var date = "["+d.format(new Date(), 'DD/MM/YYYY HH:mm:ss')+'] @'+c+' '+user+' : ';
-	fs.appendFileSync("log.txt",os.EOL+date+message.content);
-   }
+  if(message.content.indexOf(config.prefix) !== 0) return;
    // if(message.edit) {
 		// fs.appendFileSync("log.txt",os.EOL+"[***EDITED***] "+message.edit);
   // }
-  // Here we separate our "command" name, and our "arguments" for the command. 
-  // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
-  // command = say
-  // args = ["Is", "this", "the", "real", "life?"]
-  if(message.content.indexOf(config.prefix)  != 0) return;
-  
-  // Let's go with a few common example commands! Feel free to delete or change those.
- 
   try {
 		if (client.commands.has(command)) {
 		client.commands.get(command).execute(message, args,client); }
