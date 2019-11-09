@@ -8,6 +8,6 @@ module.exports = {
 		if(BOTchan !=  message.channel.name && !message.author.bot || (message.channel in (redd1, redd2, redd3))) {
 			var user = message.author.username;
 			var date = "["+d.format(new Date(), 'DD/MM/YYYY HH:mm:ss')+'] @'+message.channel.name+' '+user+' : ';
-			fs.appendFileSync("../log.txt",os.EOL+date+message.content);
+			fs.appendFileSync("./log.txt",os.EOL+date+message.content);
 		}
 }};
