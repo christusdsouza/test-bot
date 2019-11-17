@@ -1,4 +1,5 @@
 let fs  = require('fs');
+const d = require("date-and-time");
 const os = require("os");
 module.exports = {
 	execute(message,client,BOTchan,d) {
