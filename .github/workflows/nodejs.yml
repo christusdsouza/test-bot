@@ -21,4 +21,4 @@ jobs:
       env:
         CI: true
         token: ${{ secrets.token }}
-      run: npm bot.js
+      run: npm run bot.js
