@@ -2,7 +2,7 @@ let fs  = require('fs');
 const d = require("date-and-time");
 const os = require("os");
 module.exports = {
-	execute(message,client,BOTchan,d) {
+	execute(message,client,BOTchan) {
 		/*const redd1 = client.channels.get(`612331585622114304`);
 		const redd2  =  client.channels.get(`612345860373741578`);
 		const redd3  = client.channels.get(`625695412602273792`); 
