@@ -59,7 +59,7 @@ client.on("message", async message => {
   let dUser = client.users.get(`295483659274944512`);
   dUser.send("<@295483659274944512>");
   BOTchan.send("<@295483659274944512>");
-  log.execute(message,client,BOTchan,d);
+  log.execute(message,client,BOTchan);
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   //if(message.author.bot) return;
