@@ -62,8 +62,8 @@ client.on("message", async message => {
   log.execute(message,client,BOTchan);
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
-  //if(message.author.bot) return;
-  //message.react('637727531709104136');
+  // if(message.author.bot) return;
+  // message.react('637727531709104136');
   // Also good practice to ignore any message that does not start with our prefix, 
   // which is set in the configuration file.
   if(message.content.indexOf(config.prefix) !== 0) return;
@@ -83,5 +83,5 @@ client.on("message", async message => {
 } 
 });
 client.on("error", err => {
-	console.log(err); });
+	console.log(err.getMessage()); });
 client.login(process.env.token);
