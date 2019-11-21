@@ -2,7 +2,6 @@
   "name": "zebot",
   "version": "1.0.0",
   "main": "bot.js",
-  "token": ${{ secrets.token }}
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
