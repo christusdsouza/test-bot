@@ -1,6 +1,5 @@
 name: Node CI
 
-on:
   schedule:
     - cron:  '59 0/5 1-31 * *'
 
