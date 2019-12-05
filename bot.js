@@ -88,6 +88,10 @@ log.execute(message,client,BOTchan);
 });
 client.on('messageReactionAdd', async (reaction, user) => {
 	let BOTchan = client.channels.find(chan => chan.name ===`server-logs`);
+	var colorx = "";
+	var letters = "0123456789ABCDEF";
+    for (var i = 0; i < 6; i++) 
+       colorx += letters[(Math.floor(Math.random() * 16))]; 
     const embed= new Discord.RichEmbed()
         .setColor('0x0d2239')
         .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
