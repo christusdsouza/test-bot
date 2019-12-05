@@ -2,6 +2,7 @@ module.exports = {
 	syntax: " <user> <message>",
 	description: "For the weak hearted, speak it out in anonmity",
 	async execute(message,args,client) {
+		try{
 	let dUser = message.guild.member(message.mentions.users.first()) || message.guild.member(args[0]); //`295483659274944512`;  
 	//let dUser = `311761674241835009`;
 	message.channel.send("Nuking the PING engine");
@@ -28,7 +29,7 @@ module.exports = {
 		}
 	}
 	else return;
-}.catch(error => {
+	}catch(error){
 	console.log(error);
-	});
-};
+	}
+}};

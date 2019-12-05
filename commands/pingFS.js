@@ -3,6 +3,7 @@ module.exports = {
 	syntax: " <user> <amount>",
 	description: "Annoy that faggot with mass pings\n[Limit:100] Hella Experimental proceed with Caution",
 	async execute(message,args,client) {
+		try{
 	let chan = client.channels.get(`569190661081923612`);
 	let member = message.mentions.members.first() || message.guild.members.get(args[0]);
 	//c.writeFileSync("info.txt",member);//message.mentions.members.first());// message.guild.members.get(args[0]));
@@ -28,7 +29,7 @@ module.exports = {
 		}
 	}
 	else return;
-}.catch(error => {
+}catch(error){
 	console.log(error)
-});
-};
+}
+}};

@@ -12,6 +12,7 @@ module.exports = {
 	alias: "help",
 	description: "Get a list of commands",
 	async execute(message,args,client,commands) {
+		try{
 	var colorx = "";
 	var letters = "0123456789ABCDEF";
     for (var i = 0; i < 6; i++) 
@@ -36,6 +37,7 @@ module.exports = {
 			panelCmds.addField('`'+`${commandName[i]}`+'`'+`${syntx[i]}`,desc[i]);
 		}
 	return message.channel.send(panelCmds);
-	}.catch(error => {
-		console.log(error)});
-};
+	}
+	catch(error){
+		console.log(error)};
+}};
