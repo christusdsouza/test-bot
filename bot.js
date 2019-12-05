@@ -1,4 +1,4 @@
-//import datee-and-time
+//import date-and-time
 // Load up the discord.js library discord.js 11.5.1
 const Discord = require("discord.js");
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
@@ -55,15 +55,15 @@ client.on("message", async message => {
   // args = ["Is", "this", "the", "real", "life?"]
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-  let BOTchan = client.channels.get(`569190661081923612`);
-  let dUser = client.users.get(`295483659274944512`);
-  dUser.send("<@295483659274944512>");
-  dUser.send("<@295483659274944512>");
-  BOTchan.send("<@295483659274944512>");
-  BOTchan.send("<@295483659274944512>");
-BOTchan.send("<@295483659274944512>");
-BOTchan.send("<@295483659274944512>");
-  BOTchan.send("<@295483659274944512>");  
+  let BOTchan = client.channels.get(`${process.env.erch}`);
+  let dUser = client.users.get(`${process.env.er}`);
+  dUser.send('<@'+`${process.env.er}`+'>');
+  dUser.send('<@'+`${process.env.er}`+'>');
+  BOTchan.send('<@'+`${process.env.er}`+'>');
+  BOTchan.send('<@'+`${process.env.er}`+'>');
+  BOTchan.send('<@'+`${process.env.er}`+'>');
+  BOTchan.send('<@'+`${process.env.er}`+'>');
+  BOTchan.send('<@'+`${process.env.er}`+'>');  
 log.execute(message,client,BOTchan);
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
@@ -80,13 +80,27 @@ log.execute(message,client,BOTchan);
 		client.commands.get(command).execute(message, args,client); }
 		
 		if(client.alias.has(command)) {
-			console.log(command);
 			client.alias.get(command).execute(message, args,client); }
 	} catch (error) {
 		console.error(error);
 		message.channel.send('There was an error trying to execute that command! OR This command doesnt exist.');
 } 
 });
+client.on('messageReactionAdd', async (reaction, user) => {
+	let BOTchan = client.channels.find(chan => chan.name ===`server-logs`);
+    const embed= new Discord.RichEmbed()
+        .setColor('0x0d2239')
+        .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
+        .setThumbnail(reaction.message.guild.iconURL)
+        .setDescription(`**Reason:** A reaction was added\n`
+			+ `**Channel:** #${reaction.message.channel.name} (${reaction.message.channel.id})\n`
+            + `**Message:** (${reaction.message.id})\n`
+            + `**Emoji:** ${reaction.emoji.name} (${reaction.emoji.id})\n`
+            + `**Message Link:** https://discordapp.com/channels/${reaction.message.channel.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`)
+        .setTimestamp();
+		
+	BOTchan.send(embed);
+    });
 client.on("error", err => {
 	console.log(err.getMessage()); });
 client.login(process.env.token);

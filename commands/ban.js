@@ -1,4 +1,6 @@
 module.exports = {
+	syntax: " <user> <reason>",
+	description: "Drop that Ban Hammer already !\nNuke the faggot *No reasons needed*",
 	async execute(message,args) {
 	// Most of this command is identical to kick, except that here we'll only let admins do it.
     // In the real world mods could ban too, but this is just an example, right? ;)

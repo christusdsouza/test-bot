@@ -1,5 +1,7 @@
 module.exports = {
 	alias : 's', 
+	syntax : " <message>",
+	description: "Echo messages through bot",
 	execute(message, args)
 {
     // makes the bot say something and delete the message. As an example, it's open to anyone to use. 

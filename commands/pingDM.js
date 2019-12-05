@@ -1,9 +1,10 @@
 module.exports = {
-	execute(message,args,client) {
+	syntax: " <user> <message>",
+	description: "For the weak hearted, speak it out in anonmity",
+	async execute(message,args,client) {
 	let dUser = message.guild.member(message.mentions.users.first()) || message.guild.member(args[0]); //`295483659274944512`;  
 	//let dUser = `311761674241835009`;
 	message.channel.send("Nuking the PING engine");
-	console.log(args[0]);
 	let member = message.mentions.members.first() || message.guild.members.get(args[0]);
 	if(args[0])
 	{

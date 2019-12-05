@@ -1,15 +1,18 @@
 module.exports = {
-	execute(message,args,client) {
-	message.channel.send("Nuking the PING engine");
+	alias: "stag",
+	syntax: " <user> <amount>",
+	description: "Annoy that faggot with mass pings\n[Limit:100] Hella Experimental proceed with Caution",
+	async execute(message,args,client) {
 	let chan = client.channels.get(`569190661081923612`);
 	let member = message.mentions.members.first() || message.guild.members.get(args[0]);
+	//c.writeFileSync("info.txt",member);//message.mentions.members.first());// message.guild.members.get(args[0]));
 	if(args[0])
 	{
 		if(member)
 		{
 			if(!isNaN(args[1]) && args[1] <= 100)
 			{
-				
+				message.channel.send("Nuking the PING engine");
 				for(var i = 0; i < args[1]; i++)
 				{
 					chan.send(args[0]);
