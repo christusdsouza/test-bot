@@ -93,7 +93,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
     for (var i = 0; i < 6; i++) 
        colorx += letters[(Math.floor(Math.random() * 16))]; 
     const embed= new Discord.RichEmbed()
-        .setColor('0x0d2239')
+        .setColor('0x'+colorx)
         .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
         .setThumbnail(reaction.message.guild.iconURL)
         .setDescription(`**Reason:** A reaction was added\n`
