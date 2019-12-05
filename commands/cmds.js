@@ -36,5 +36,6 @@ module.exports = {
 			panelCmds.addField('`'+`${commandName[i]}`+'`'+`${syntx[i]}`,desc[i]);
 		}
 	return message.channel.send(panelCmds);
-	}
+	}.catch(error => {
+		console.log(error)});
 };

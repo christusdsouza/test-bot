@@ -28,4 +28,7 @@ module.exports = {
 		}
 	}
 	else return;
-}};
+}.catch(error => {
+	console.log(error);
+	});
+};
