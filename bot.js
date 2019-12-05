@@ -77,7 +77,7 @@ log.execute(message,client,BOTchan);
   // }
   try {
 		if (client.commands.has(command)) {
-		client.commands.get(command).execute(message, args,client); }
+		client.commands.get(command).execute(message, args,client,commands); }
 		
 		if(client.alias.has(command)) {
 			client.alias.get(command).execute(message, args,client); }
