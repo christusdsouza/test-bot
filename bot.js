@@ -77,10 +77,10 @@ log.execute(message,client,BOTchan);
   // }
   try {
 		if (client.commands.has(command)) {
-		client.commands.get(command).execute(message, args,client,commands); }
+		client.commands.get(command).execute(message, args,client,client.commands); }
 		
 		if(client.alias.has(command)) {
-			client.alias.get(command).execute(message, args,client); }
+			client.alias.get(command).execute(message, args,client,client.commands); }
 	} catch (error) {
 		console.error(error);
 		message.channel.send('There was an error trying to execute that command! OR This command doesnt exist.');
