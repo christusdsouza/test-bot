@@ -12,12 +12,16 @@ module.exports = {
 	alias: "help",
 	description: "Get a list of commands",
 	async execute(message,args,client,commands) {
+	var colorx = "";
+	var letters = "0123456789ABCDEF";
+    for (var i = 0; i < 6; i++) 
+       colorx += letters[(Math.floor(Math.random() * 16))]; 
 	const commandName = Array.from(commands.keys());
 	const syntx = getstuff(commands,commandName,true);
 	const desc = getstuff(commands,commandName,false);
 	var chan = client.channels.get('569190661081923612');
 	const panelCmds = new Discord.RichEmbed()
-		.setColor('#0099ff')
+		.setColor('0x'+colorx)
 		.setTitle('WWV Bot Command list')
 		.setThumbnail(message.guild.iconURL)
 		.setDescription('Server-prefix `/`     ~modification to prefixes incoming~')
