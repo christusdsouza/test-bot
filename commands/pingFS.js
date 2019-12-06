@@ -4,7 +4,7 @@ module.exports = {
 	description: "Annoy that faggot with mass pings\n[Limit:100] Hella Experimental proceed with Caution",
 	async execute(message,args,client) {
 		try{
-	let chan = client.channels.get(`569190661081923612`);
+	let chan = client.channels.find(chan => chan.name === 'bot-mug');
 	let member = message.mentions.members.first() || message.guild.members.get(args[0]);
 	//c.writeFileSync("info.txt",member);//message.mentions.members.first());// message.guild.members.get(args[0]));
 	if(args[0])
