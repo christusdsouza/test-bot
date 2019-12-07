@@ -101,6 +101,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
             + `**Message:** (${reaction.message.id})\n`
             + `**Emoji:** ${reaction.emoji.name} (${reaction.emoji.id})\n`
             + `**Message Link:** https://discordapp.com/channels/${reaction.message.channel.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`)
+			.setImage(reaction.emoji.url)
         .setTimestamp();
 		
 	BOTchan.send(embed);
