@@ -81,9 +81,11 @@ log.execute(message,client,BOTchan);
 		
 		if(client.alias.has(command)) {
 			client.alias.get(command).execute(message, args,client,client.commands); }
+		if(!client.alias.has(command))
+			message.channel.send('Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info');
 	} catch (error) {
 		console.error(error);
-		message.channel.send('There was an error trying to execute that command! OR This command doesnt exist.');
+		message.channel.send('There was an error trying to execute that command!');
 } 
 });
 client.on('messageReactionAdd', async (reaction, user) => {
