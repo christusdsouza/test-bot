@@ -6,7 +6,8 @@ module.exports = {
 			console.log('k');
 			let myRole = message.guild.roles.find(role => role.name === args.join(' '));
 			return message.channel.send(myRole.id);
-		}else {
-			return (message.guild.roles.id);
-		}
+		//}else {
+		//	return (message.guild.roles.id);
+		} else 
+			message.reply(`Tell me the role name atleast bobo`);
 }};
