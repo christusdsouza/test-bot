@@ -77,16 +77,15 @@ log.execute(message,client,BOTchan);
   // }
   try {
 		if (client.commands.has(command)) {
-		client.commands.get(command).execute(message, args,client,client.commands); }
-		
-		if(client.alias.has(command)) {
-			client.alias.get(command).execute(message, args,client,client.commands); }
-		//if(!client.alias.has(command))
-			//message.channel.send('Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info');
+		    client.commands.get(command).execute(message,args,client,perms); }//admPerms,modPerms);  
+		if(client.alias.has(command)) { 
+			client.alias.get(command).execute(message,args,client,perms); }//admPerms,modPerms); 
+		if (!(client.commands.has(command))){
+			message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info'); }
 	} catch (error) {
 		console.error(error);
-		message.channel.send('There was an error trying to execute that command!');
-} 
+		message.channel.send('There was an error trying to execute that command! OR This command doesnt exist.');
+  }
 });
 client.on('messageReactionAdd', async (reaction, user) => {
 	let BOTchan = client.channels.find(chan => chan.name ===`server-logs`);
