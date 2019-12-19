@@ -53,6 +53,8 @@ client.on("message", async message => {
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
   // args = ["Is", "this", "the", "real", "life?"]
+   const prefix = message.content.slice(0,1);
+  const args = message.content.slice(config.prefix.length);
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   let BOTchan = client.channels.get(`${process.env.erch}`);
@@ -71,7 +73,7 @@ log.execute(message,client,BOTchan);
   // message.react('637727531709104136');
   // Also good practice to ignore any message that does not start with our prefix, 
   // which is set in the configuration file.
-  if(message.content.indexOf(config.prefix) !== 0) return;
+  if(config.prefix != prefix) return;
    // if(message.edit) {
 		// fs.appendFileSync("log.txt",os.EOL+"[***EDITED***] "+message.edit);
   // }
