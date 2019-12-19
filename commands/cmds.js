@@ -25,7 +25,7 @@ module.exports = {
 		.setColor('0x'+colorx)
 		.setTitle('WWV Bot Command list')
 		.setThumbnail(message.guild.iconURL)
-		.setDescription('Server-prefix `/`     ~modification to prefixes incoming~')
+		.setDescription('Server-prefix `/`     ~modification to prefixes incoming~\nFormat:`commandName w/syntax` Info & Description')
 		.setTimestamp()
 		.setFooter(`*More work to be done AWW MAN !!*`);
 	for(var i=0;i<commandName.length;i++) {
