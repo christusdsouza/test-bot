@@ -53,7 +53,8 @@ client.on("message", async message => {
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
   // args = ["Is", "this", "the", "real", "life?"]
-   const prefix = message.content.slice(0,1);
+  let perms = new Discord.Permissions(message.author,[`ADMINISTRATOR`,`MANAGE_MESSAGES`]);
+  const prefix = message.content.slice(0,1);
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   let BOTchan = client.channels.get(`${process.env.erch}`);
