@@ -11,15 +11,15 @@ function getstuff(commands,commandName,flag=true) {
 module.exports = {
 	alias: "help",
 	description: "Get a list of commands",
-	async execute(message,args,client,commands) {
+	async execute(message,args,client) {
 		try{
 	var colorx = "";
 	var letters = "0123456789ABCDEF";
     for (var i = 0; i < 6; i++) 
        colorx += letters[(Math.floor(Math.random() * 16))]; 
-	const commandName = Array.from(commands.keys());
-	const syntx = getstuff(commands,commandName,true);
-	const desc = getstuff(commands,commandName,false);
+	const commandName = Array.from(client.commands.keys());
+	const syntx = getstuff(client.commands,commandName,true);
+	const desc = getstuff(client.commands,commandName,false);
 	var chan = client.channels.get('569190661081923612');
 	const panelCmds = new Discord.RichEmbed()
 		.setColor('0x'+colorx)
