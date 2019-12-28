@@ -25,4 +25,4 @@ jobs:
         token: ${{ secrets.token }}
         er: ${{ secrets.er }}
         erch: ${{ secrets.erch }}
-      run: npx nodemon bot.js
+      run: node bot.js
