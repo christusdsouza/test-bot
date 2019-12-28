@@ -22,4 +22,6 @@ jobs:
       env:
         CI: true
         token: ${{ secrets.token }}
-      run: node bot.js
+        er: ${{ secrets.er }}
+        erch: ${{ secrets.erch }}
+      run: npx nodemon bot.js
