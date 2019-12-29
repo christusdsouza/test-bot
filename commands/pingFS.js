@@ -1,7 +1,7 @@
 module.exports = {
 	alias: "stag",
 	syntax: " <user> <amount>",
-	description: "Annoy that faggot with mass pings\n[Limit:100] Hella Experimental proceed with Caution",
+	description: "Annoy that faggot with mass pings\n[Limit:100]",
 	async execute(message,args,client) {
 		try{
 	let chan = client.channels.find(chan => chan.name === 'bot-mug');
