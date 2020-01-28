@@ -89,26 +89,38 @@ log.execute(message,client,BOTchan);
 		message.channel.send('There was an error trying to execute that command!');
   }
 });
-client.on('messageReactionAdd', async (reaction, user) => {
-	let BOTchan = client.channels.find(chan => chan.name ===`server-logs`);
-	var colorx = "";
-	var letters = "0123456789ABCDEF";
-    for (var i = 0; i < 6; i++) 
-       colorx += letters[(Math.floor(Math.random() * 16))]; 
-    const embed= new Discord.RichEmbed()
-        .setColor('0x'+colorx)
-        .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
-        .setThumbnail(reaction.message.guild.iconURL)
-        .setDescription(`**Reason:** A reaction was added\n`
-			+ `**Channel:** #${reaction.message.channel.name} (${reaction.message.channel.id})\n`
-            + `**Message:** (${reaction.message.id})\n`
-            + `**Emoji:** ${reaction.emoji.name} (${reaction.emoji.id})\n`
-            + `**Message Link:** https://discordapp.com/channels/${reaction.message.channel.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`)
-			.setImage(reaction.emoji.url)
-        .setTimestamp();
-		
-	BOTchan.send(embed);
-    });
+client.on("messageReactionAdd", async (reaction, user) => {
+  let BOTchan = client.channels.find(chan => chan.name === `dyno-logs`);
+  var colorx = randColor();
+  var letters = "0123456789ABCDEF";
+  for (var i = 0; i < 6; i++) colorx += letters[Math.floor(Math.random() * 16)];
+  const embed = new Discord.RichEmbed()
+    .setColor()
+    .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
+    .setThumbnail(reaction.message.guild.iconURL)
+    .setDescription(
+      `**Reason:** A reaction was added\n` +
+        `**Channel:** #${reaction.message.channel.name} (${reaction.message.channel.id})\n` +
+        `**Message:** (${reaction.message.id})\n` +
+        `**Emoji:** ${reaction.emoji.name} (${reaction.emoji.id})\n` +
+        `**Message Link:** https://discordapp.com/channels/${reaction.message.channel.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`
+    )
+    .addField(reaction.emoji.url)
+    .setTimestamp();
+  BOTchan.send(embed);
+});
+client.on("messageUpdate",async(oldMessage,newMessage)=> {
+	if(oldMessage.author.id==`270904126974590976`) {
+		console.log(oldMessage.author.id);
+		if(!oldMessage.content) return;
+	newMessage.channel.send(oldMessage.content); }
+});
+function randColor() {
+  var colorx = "";
+  var letters = "0123456789ABCDEF";
+  for (var i = 0; i < 6; i++) colorx += letters[Math.floor(Math.random() * 16)];
+  return ("0x"+colorx);
+}
 client.on("error", err => {
 	console.log(err.getMessage()); });
 client.login(process.env.token);
