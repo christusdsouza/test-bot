@@ -79,10 +79,10 @@ log.execute(message,client,BOTchan);
   // }
   try {
 		if (client.commands.has(command)) {
-		    client.commands.get(command).execute(message,args,client,perms); }//admPerms,modPerms);  
+		    client.commands.get(command).execute(message,args,client); }//admPerms,modPerms);  
 		if(client.alias.has(command)) { 
-			client.alias.get(command).execute(message,args,client,perms); }//admPerms,modPerms); 
-		if (!(client.commands.has(command))){
+			client.alias.get(command).execute(message,args,client); }//admPerms,modPerms); 
+		if (! client.commands.has(command) || client.alias.has(command)) {
 			message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info'); }
 	} catch (error) {
 		console.error(error);
@@ -110,5 +110,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 	BOTchan.send(embed);
     });
 client.on("error", err => {
-	console.log(err.getMessage()); });
+	console.log(err.getMessage()); 
+});
 client.login(process.env.token);

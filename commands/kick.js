@@ -3,12 +3,11 @@ module.exports = {
 	syntax: " <user> <reason>",
 	description: "Pest Control? We got ya a bug spray, KICK EM OUT for Good.",
 	async execute(message, args, client) {
-	var flag = new Discord.Permissions(message.author,`ADMINISTRATOR`);
 	// This command must be limited to mods and admins. In this example we just hardcode the role names.
     // Please read on Array.some() to understand this bit: 
     // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
-    if(!flag.has(`ADMINISTRATOR`))
-      return message.reply("Sorry, you don't have permissions to use this!");
+    if(!message.member.hasPermission(`ADMINISTRATOR`))
+		return message.reply("Sorry, you don't have permissions to use this!");
     // Let's first check if we have a member and if we can kick them!
     // message.mentions.members is a collection of people that have been mentioned, as GuildMembers.
     // We can also support getting the member by ID, which would be args[0]
