@@ -1,5 +1,5 @@
 module.exports = {
-	description: "Critical: Invite creation, only for Admins/Owner",
+	description: "uptime",
 	execute(message,args,client) {
 		return message.channel.send(
 			'Status: '+client.status+
