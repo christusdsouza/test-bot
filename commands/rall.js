@@ -4,12 +4,13 @@ const Discord = require("discord.js");
 module.exports = {
 	description: "List all roles with ID",
 	execute(message,args,client) {
-		if(message.author.id === `311761674241835009`) {
+		if(!message.member.hasPermission(`ADMINISTRATOR`))
+			return message.reply("Sorry, you don't have permissions to use this!");
 			let allRoles = message.guild.roles;
 			for (i of allRoles) {
 				console.log(i);
 				message.channel.send(i);//i.Role.name+': '+i.Role.id);
-			}
+			
 		}
 	}
 };
