@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 //const Collection = require("discord.js/src/Collection");
 
 module.exports = {
-	description: "Critical: Invite creation, only for Admins/Owner",
+	description: "List all roles with ID",
 	execute(message,args,client) {
 		if(message.author.id === `311761674241835009`) {
 			let allRoles = message.guild.roles;
