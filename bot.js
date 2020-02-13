@@ -110,7 +110,6 @@ client.on("messageReactionAdd", async (reaction, user) => {
 });
 client.on("messageUpdate",async(oldMessage,newMessage)=> {
 	if(oldMessage.author.id==`270904126974590976`) {
-		console.log(oldMessage.author.id);
 		if(!oldMessage.content) return;
 	newMessage.channel.send(oldMessage.content).delete(10000); }
 });
