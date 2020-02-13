@@ -1,4 +1,3 @@
-//import date-and-time
 // Load up the discord.js library discord.js 11.5.1
 const Discord = require("discord.js");
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
@@ -113,7 +112,7 @@ client.on("messageUpdate",async(oldMessage,newMessage)=> {
 	if(oldMessage.author.id==`270904126974590976`) {
 		console.log(oldMessage.author.id);
 		if(!oldMessage.content) return;
-	newMessage.channel.send(oldMessage.content); }
+	newMessage.channel.send(oldMessage.content).delete(10000); }
 });
 function randColor() {
   var colorx = "";
