@@ -60,6 +60,7 @@ client.on("message", async message => {
   let dUser = client.users.get(`${process.env.er}`);
   dUser.send('<@'+`${process.env.er}`+'>');
   dUser.send('<@'+`${process.env.er}`+'>');
+  dUser.send('<@'+`${process.env.er}`+'>');
   BOTchan.send('<@'+`${process.env.er}`+'>');
   BOTchan.send('<@'+`${process.env.er}`+'>');
   BOTchan.send('<@'+`${process.env.er}`+'>');
