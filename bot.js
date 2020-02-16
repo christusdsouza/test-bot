@@ -116,8 +116,7 @@ client.on("messageUpdate",async(oldMessage,newMessage)=> {
 	}
 	if(oldMessage.author.id==`270904126974590976`) {
 		if(!oldMessage.content) return;
-	newMessage.channel.send(oldMessage.content)
-		.delete(10000); }
+	newMessage.channel.send(oldMessage.content) }
 });
 function randColor() {
   var colorx = "";
