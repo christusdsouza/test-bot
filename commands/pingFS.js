@@ -6,7 +6,16 @@ module.exports = {
 		try{
 	let chan = client.channels.find(chan => chan.name === 'bot-mug');
 	let member = message.mentions.members.first() || message.guild.members.get(args[0]);
-	//c.writeFileSync("info.txt",member);//message.mentions.members.first());// message.guild.members.get(args[0]));
+	
+	//Timeout set to 10 minutes(600000 ms) from the last sent command
+	if(!prevPingCmd)
+		prevPingCmd = message.createdTimestamp;
+	else
+		var now = message.createdTimestamp;
+	console.log('\nprev'+prevPingCmd+'\nnow'+now);
+	if(now - prevPingCmd < 600000) return ;
+	
+	//Ping starts here
 	if(args[0])
 	{
 		if(member)
