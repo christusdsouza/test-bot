@@ -1,29 +1,27 @@
 {
-  "name": "zebot",
+  "name": "test-bot",
   "version": "1.0.0",
+  "description": "",
   "main": "bot.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js"
-  },
-  "keywords": [],
-  "author": "ME",
-  "license": "ISC",
   "dependencies": {
     "date-and-time": "^0.10.0",
-    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "discord.io": "^2.5.3",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/christusdsouza/test-bot.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/christusdsouza/test-bot/issues"
   },
-  "homepage": "https://github.com/christusdsouza/test-bot#readme",
-  "description": ""
+  "homepage": "https://github.com/christusdsouza/test-bot#readme"
 }
