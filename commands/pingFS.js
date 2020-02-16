@@ -1,3 +1,4 @@
+let prevPingCmd;
 module.exports = {
 	alias: "stag",
 	syntax: " <user> <amount>",
