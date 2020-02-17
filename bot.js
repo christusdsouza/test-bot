@@ -115,6 +115,27 @@ client.on("messageUpdate",async(oldMessage,newMessage)=> {
 		if(!oldMessage.content) return;
 		newMessage.channel.send(oldMessage.content); }
 });
+client.on("emojiDelete",async(emoji) => {
+	//var audits = new GuildAction
+	var colorx = randColor();
+	var chan = emoji.guild.channels.find(chan => chan.name == 'ping');
+	chan.send('Emoji Deleted: '+emoji+'\nLINK: '+emoji.url);
+	/*const embed = new Discord.RichEmbed()
+		.setColor("0x" + colorx)
+		.setThumbnail(emoji.guild.iconURL)
+		.setDescription(
+		`**Event:** Emote Deleted\n` +
+        `**Deleted by:** ${emoji.user_id}\n`
+		)
+		.addField(
+		`**Author:** ${emoji.author}\n` +
+        `**Time of Creation:** ${emoji.createdAt}`
+		)
+		.setImage(emoji.url)
+		.setTimestamp()
+		.setFooter('Deleted, RIP',emoji.user_id.avatarURL);
+  chan.send(embed);*/
+});
 function randColor() {
   var colorx = "";
   var letters = "0123456789ABCDEF";
