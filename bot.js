@@ -118,7 +118,7 @@ client.on("messageUpdate",async(oldMessage,newMessage)=> {
 client.on("emojiDelete",async(emoji) => {
 	//var audits = new GuildAction
 	var colorx = randColor();
-	var chan = emoji.guild.channels.find(chan => chan.name == 'dyno-logs`');
+	var chan = emoji.guild.channels.find(chan => chan.name == 'dyno-logs');
 	chan.send('Emoji Deleted: '+emoji+'\nLINK: '+emoji.url);
 	/*const embed = new Discord.RichEmbed()
 		.setColor("0x" + colorx)
