@@ -13,6 +13,7 @@ module.exports = {
 		prevPingCmd = message.createdTimestamp;
 	else
 		var now = message.createdTimestamp;
+	
 	console.log('\nprev'+prevPingCmd+'\nnow'+now);
 	if(now - prevPingCmd < 600000) return message.reply('Scoot away dumb bitch I got some mentions to do');
 	

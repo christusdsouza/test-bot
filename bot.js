@@ -110,13 +110,10 @@ client.on("messageReactionAdd", async (reaction, user) => {
   BOTchan.send(embed);
 });
 client.on("messageUpdate",async(oldMessage,newMessage)=> {
-	if(oldMessage.content.toLowerCase().search("hacking"))
-	{
-		return await new Promise(resolve => { client.setTimeout(()=>{client.setTimeout(()=>{},5000)},16000)});
-	}
+	if(!(oldMessage.content.substring(0,4).toLowerCase() == "work")) return;
 	if(oldMessage.author.id==`270904126974590976`) {
 		if(!oldMessage.content) return;
-	newMessage.channel.send(oldMessage.content) }
+		newMessage.channel.send(oldMessage.content); }
 });
 function randColor() {
   var colorx = "";
