@@ -8,7 +8,6 @@ module.exports = {
 			return message.reply("Sorry, you don't have permissions to use this!");
 			let allRoles = message.guild.roles;
 			for (i of allRoles) {
-				console.log(i);
 				message.channel.send(i);//i.Role.name+': '+i.Role.id);
 			
 		}
