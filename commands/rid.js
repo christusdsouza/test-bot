@@ -5,8 +5,8 @@ module.exports = {
 		if(!message.member.hasPermission(`ADMINISTRATOR`))
 			return message.reply("Sorry, you don't have permissions to use this!");
 		if(args){
-			let myRole = message.guild.roles.find(role => role.name.toLowerCase() === args.join(' '));
+			let myRole = message.guild.roles.find(role => role.name.toLowerCase() === args.join(' ').toLowerCase());
 			return message.channel.send(myRole.id);
 		} else 
-			message.reply(`Tell me the role name atleast bobo`);
+			return message.reply(`Tell me the role name atleast bobo`);
 }};
