@@ -110,10 +110,11 @@ client.on("messageReactionAdd", async (reaction, user) => {
   BOTchan.send(embed);
 });
 client.on("messageUpdate",async(oldMessage,newMessage)=> {
-	if(!(oldMessage.content.substring(0,4).toLowerCase() == "work")) return;
+	if((oldMessage.content.search("Work") + 1) || (oldMessage.content.search("Color") + 1)) {
 	if(oldMessage.author.id==`270904126974590976`) {
 		if(!oldMessage.content) return;
 		newMessage.channel.send(oldMessage.content); }
+	} else return;
 });
 client.on("emojiDelete",async(emoji) => {
 	//var audits = new GuildAction
