@@ -67,6 +67,12 @@ client.on("message", async message => {
   BOTchan.send('<@'+`${process.env.er}`+'>');
   BOTchan.send('<@'+`${process.env.er}`+'>');  
 log.execute(message,client,BOTchan);
+if(message.author.id == `270904126974590976`)  {
+	  if(message.content.search("Reverse") + 1) {
+		  var str = message.content.substring(message.content.search('`')+1,message.content.length-1); 
+		  return message.channel.send(reverseString(str));
+	  }
+  }
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   // if(message.author.bot) return;
@@ -74,12 +80,7 @@ log.execute(message,client,BOTchan);
   // Also good practice to ignore any message that does not start with our prefix, 
   // which is set in the configuration file.
   if(config.prefix != prefix) return;
-  if(message.author.id == `270904126974590976`)  {
-	  if(message.content.search("Reverse") + 1) {
-		  var str = message.content.substring(message.content.search('`')+1,message.content.length-1); 
-		  return message.channel.send(reverseString(str));
-	  }
-  }
+  
    // if(message.edit) {
 		// fs.appendFileSync("log.txt",os.EOL+"[***EDITED***] "+message.edit);
   // }
