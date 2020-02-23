@@ -74,6 +74,12 @@ log.execute(message,client,BOTchan);
   // Also good practice to ignore any message that does not start with our prefix, 
   // which is set in the configuration file.
   if(config.prefix != prefix) return;
+  if(message.author.id == `270904126974590976`)  {
+	  if(message.content.search("Reverse") + 1) {
+		  var str = message.content.substring(message.content.search('`')+1,message.content.length-1); 
+		  return message.channel.send(reverseString(str));
+	  }
+  }
    // if(message.edit) {
 		// fs.appendFileSync("log.txt",os.EOL+"[***EDITED***] "+message.edit);
   // }
@@ -142,6 +148,12 @@ function randColor() {
   var letters = "0123456789ABCDEF";
   for (var i = 0; i < 6; i++) colorx += letters[Math.floor(Math.random() * 16)];
   return ("0x"+colorx);
+}
+function reverseString(str) {
+    var newString = "";
+    for (var i = str.length - 1; i >= 0; i--)
+        newString += str[i];
+    return newString;
 }
 client.on("error", err => {
 	console.log(err.getMessage()); 
