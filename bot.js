@@ -32,6 +32,8 @@ client.on("ready", () => {
   // Example of changing the bot's playing game to something useful. `client.user` is what the
   // docs refer to as the "ClientUser".
 client.user.setActivity(`Tyranny NUKE Humanity`,{type: `Watching`});
+
+	client.guild.channels.find(chan => chan.name == 'bot-mug').send('We're back in action, huya!');
 });
 
 client.on("guildCreate", guild => {
