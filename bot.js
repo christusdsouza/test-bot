@@ -33,7 +33,7 @@ client.on("ready", () => {
   // docs refer to as the "ClientUser".
 client.user.setActivity(`Tyranny NUKE Humanity`,{type: `Watching`});
 
-	client.guild.channels.find(chan => chan.name == "bot-mug").send("We're back in action, huya!");
+	//client.guild.channels.find(chan => chan.name == "bot-mug").send("We're back in action, huya!");
 });
 
 client.on("guildCreate", guild => {
