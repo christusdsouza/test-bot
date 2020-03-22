@@ -145,6 +145,19 @@ client.on("emojiDelete",async(emoji) => {
 		.setFooter('Deleted, RIP',emoji.user_id.avatarURL);
   chan.send(embed);*/
 });
+client.on("presenceUpdate", async(oldMember, newMember) => {
+	var P = new Discord.Presence(newMember.presence, newMember.clientStatus);
+	var chan = oldMember.guild.channels.find(chan => chan.name == 'presence');
+	console.log('hey\n'+P.status+'\n'+P.game+'\n'+P.clientStatus);
+	const Embed = await new Discord.RichEmbed()
+	  .setTitle('User Activity')
+	  .setColor(randColor())
+	  .setDescription('User: '+newMember.displayName)
+	  .addField('Activity: '+P.status+' || Status: '+P.game)
+	  .setThumbnail(oldMember.avatarURL)
+	  .setTimestamp();
+	chan.send(Embed);
+});
 function randColor() {
   var colorx = "";
   var letters = "0123456789ABCDEF";
