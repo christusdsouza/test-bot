@@ -153,8 +153,7 @@ client.on("presenceUpdate", async(oldMember, newMember) => {
 	  .setTitle('User Activity')
 	  .setColor(randColor())
 	  .setDescription('User: '+newMember.displayName)
-	  .addField('Activity: '+P.status+' || Status: '+P.game)
-	  .setThumbnail(oldMember.avatarURL)
+	  .addField('Activity: '+P.status+' || Status: '+P.game')
 	  .setTimestamp();
 	chan.send(Embed);
 });
