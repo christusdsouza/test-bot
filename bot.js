@@ -146,6 +146,7 @@ client.on("emojiDelete",async(emoji) => {
   chan.send(embed);*/
 });
 client.on("presenceUpdate", async(oldMember, newMember) => {
+        var d = new Date();
 	var P = new Discord.Presence(newMember.presence, newMember.clientStatus);
 	var chan = oldMember.guild.channels.find(chan => chan.name == 'presence');
 	const Embed = await new Discord.RichEmbed()
@@ -156,10 +157,10 @@ client.on("presenceUpdate", async(oldMember, newMember) => {
 
 	if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
 	{
-		if(!mem.has(P.userID))	mem.set(P.userID,Embed.timestamp);
+		if(!mem.has(P.userID))	mem.set(P.userID,d.now());
 		chan.send(Embed);
 	} else {
-		var diff = Embed.timestamp - mem.get(P.userID);
+		var diff = d.now() - mem.get(P.userID);
 		Embed.setFooter(uptime(diff));
 		mem.delete(P.userID);
 		chan.send(Embed);
