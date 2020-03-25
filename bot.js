@@ -13,7 +13,7 @@ const client = new Discord.Client();
 const fs = require('fs');
 client.commands = new Discord.Collection();
 client.alias = new Discord.Collection();
-
+const mem = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const d = require("date-and-time");
 console.log(d.format(new Date(), 'DD/MM/YYYY HH:mm:ss'));
@@ -148,16 +148,31 @@ client.on("emojiDelete",async(emoji) => {
 client.on("presenceUpdate", async(oldMember, newMember) => {
 	var P = new Discord.Presence(newMember.presence, newMember.clientStatus);
 	var chan = oldMember.guild.channels.find(chan => chan.name == 'presence');
-	console.log('hey\n'+P.status+'\n'+P.game+'\n'+P.clientStatus);
 	const Embed = await new Discord.RichEmbed()
 	  .setTitle('User Activity')
 	  .setColor(randColor())
-	  .setDescription('User: '+newMember.displayName)
-	  .addField('Activity: '+P.status+' || Status: '+P.game)
-	  .setThumbnail(oldMember.avatarURL)
+	  .setDescription('User: '+newMember.displayName+'\nActivity: '+P.status+' || Status: '+P.game)
 	  .setTimestamp();
-	chan.send(Embed);
+
+	if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
+	{
+		if(!mem.has(P.userID))	mem.set(P.userID,Embed.timestamp);
+		chan.send(Embed);
+	} else {
+		var diff = Embed.timestamp - mem.get(P.userID);
+		Embed.setFooter(uptime(diff));
+		mem.delete(P.userID);
+		chan.send(Embed);
+	}
 });
+function uptime(milliseconds) {
+	var seconds = ((milliseconds / 1000) % 60);
+	var minutes = ((milliseconds / (1000*60)) % 60);
+	var hours   = (milliseconds / (1000*60*60));
+	var days = (hours / 24);
+	if (days < 1) return hours.toFixed(0)+'h'+minutes.toFixed(0)+'m'+seconds.toFixed(0)+'s';
+	return days.toFixed(0)+'d '+(hours.toFixed(0)%24)+'h '+minutes.toFixed(0)+'m '+seconds.toFixed(0)+'s';
+}
 function randColor() {
   var colorx = "";
   var letters = "0123456789ABCDEF";
