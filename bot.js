@@ -151,6 +151,7 @@ client.on("presenceUpdate", async(oldMember, newMember) => {
 	const Embed = await new Discord.RichEmbed()
 	  .setTitle('User Activity')
 	  .setColor(randColor())
+	  .setDescription('User: '+newMember.displayName+'\nActivity: '+P.status+' || Status: '+P.game)
 	  .setTimestamp();
 
 	if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
