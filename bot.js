@@ -146,7 +146,7 @@ client.on("emojiDelete",async(emoji) => {
   chan.send(embed);*/
 });
 client.on("presenceUpdate", async(oldMember, newMember) => {
-        var dTime= new Date.now();
+        var dTime= Date.now();
 	var P = new Discord.Presence(newMember.presence, newMember.clientStatus);
 	var chan = oldMember.guild.channels.find(chan => chan.name == 'presence');
 	const Embed = await new Discord.RichEmbed()
