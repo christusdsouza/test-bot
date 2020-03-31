@@ -1,26 +1,18 @@
+const insult  = require('./../assets/insult.json');
 module.exports= {
 	alias: "in",
 	syntax: " $$$~Youre looking for a syntax?",
 	description: "Just nuke that faggot already! So dont forget to mention THEM. **Becareful not to hurt yourself** ~experimental~",
-	execute(message,args,config){
-	  len = config.insult.length;
+	execute(message,args){
+	  len = insult.insult.length;
 	  var rand = Math.floor((Math.random() * 10) % len);
 	  var item = "";	
-	  if(args[0] == "add")
-	  {
-		  args.shift();
-		  if(args[0])
-		  {
-				var item =  args.join(" ");
-				config.insult.push(item);
-				console.log(config.insult);
-				return message.channel.send("ADDED MF");
-		  }
-		  return message.channel.send("You are adding nothing to the list MF, bleach your eyes ffs its ADD");
-	  } 
-	  console.log(config.insult);
+	  console.log(args[0]+'\n'+message.author);
+	  console.log(insult.insult);
 	  if(!args[0])
-		return message.reply(config.insult[rand]);
-	  else
-		return message.channel.send(args.join(' ')+" "+config.insult[rand]);
+		return message.reply(insult.insult[rand]);
+	  else if(args[0] === '<@631776475858599936>')
+		return message.reply(insult.insult[rand]+'\nAint insulting myself you stupid bitch!!!');
+	  else 
+		return message.channel.send(args.join(' ')+" "+insult.insult[rand]);
 }};
