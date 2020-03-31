@@ -4,11 +4,8 @@ module.exports= {
 	syntax: " $$$~Youre looking for a syntax?",
 	description: "Just nuke that faggot already! So dont forget to mention THEM. **Becareful not to hurt yourself** ~experimental~",
 	execute(message,args){
-	  len = insult.insult.length;
+	  var len = insult.insult.length;
 	  var rand = Math.floor((Math.random() * 10) % len);
-	  var item = "";	
-	  console.log(args[0]+'\n'+message.author);
-	  console.log(insult.insult);
 	  if(!args[0])
 		return message.reply(insult.insult[rand]);
 	  else if(args[0] === '<@631776475858599936>')
