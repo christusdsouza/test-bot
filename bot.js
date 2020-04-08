@@ -158,7 +158,7 @@ client.on("presenceUpdate", async(oldMember, newMember) => {
 	if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
 	{
     if(!mem.has(P.userID))	mem.set(P.userID,dTime);
-    Embed.setFooter('Presence Recorded at '+uptime(dTime)+'\n@Collection.mem '+mem.get(userID));
+		Embed.setFooter('Presence Recorded at '+uptime(dTime)+'\n@Collection.mem '+mem.get(P.userID));
 		chan.send(Embed);
 	} else {
 		var diff = dTime - mem.get(P.userID);
