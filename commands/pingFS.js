@@ -5,7 +5,7 @@ module.exports = {
 	description: "Annoy that faggot with mass pings\n[Limit:100]",
 	async execute(message,args,client) {
 		try{
-	let chan = client.channels.find(chan => chan.name === 'bot-mug');
+	let chan = client.channels.find(chan => chan.id === `647162352797745172`);
 	let member = message.mentions.members.first() || message.guild.members.get(args[0]);
 	
 	//Timeout set to 10 minutes(600000 ms) from the last sent command

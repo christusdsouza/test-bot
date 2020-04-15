@@ -32,7 +32,7 @@ client.on("ready", () => {
   // Example of changing the bot's playing game to something useful. `client.user` is what the
   // docs refer to as the "ClientUser".
 client.user.setActivity(`Tyranny NUKE Humanity`,{type: `Watching`});
-client.channels.find(chan => chan.name == `bot-mug`).send('OOps, We good now; Back in Action');
+client.channels.find(chan => chan.id ===`647162352797745172`).send('OOps, We good now; Back in Action');
 });
 
 client.on("guildCreate", guild => {
@@ -127,7 +127,7 @@ client.on("messageUpdate",async(oldMessage,newMessage)=> {
 client.on("emojiDelete",async(emoji) => {
 	//var audits = new GuildAction
 	var colorx = randColor();
-	var chan = emoji.guild.channels.find(chan => chan.name == 'dyno-logs');
+	var chan = emoji.guild.channels.find(chan => chan.id === `569192598313500683`);
 	chan.send('Emoji Deleted: '+emoji+'\nLINK: '+emoji.url);
 	/*const embed = new Discord.RichEmbed()
 		.setColor("0x" + colorx)
