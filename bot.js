@@ -146,28 +146,28 @@ client.on("emojiDelete",async(emoji) => {
   chan.send(embed);*/
 });
 client.on("presenceUpdate", async(oldMember, newMember) => {
-  var dTime= Date.now();
+  //var dTime= Date.now();
 	var P = new Discord.Presence(newMember.presence, newMember.clientStatus);
 	var chan = oldMember.guild.channels.find(chan => chan.name == 'presence');
-	const Embed = await new Discord.RichEmbed()
-	  .setTitle('User Activity')
+  const Embed = await new Discord.RichEmbed
+    .setThumbnail(newMember.user.avatarURL)
 	  .setColor(randColor())
 	  .setDescription('User: '+newMember.displayName+'\nActivity: '+P.status+' || Status: '+P.game)
 	  .setTimestamp();
-
-	if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
+  /* Condition to check if a 'user' is in a !offline state and also track the total time spent in a !offline state till 'user':offline
+  if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
 	{
-    if(!mem.has(P.userID))	mem.set(P.userID,dTime);
-		Embed.setFooter('Presence Recorded at '+uptime(dTime)+'\n@Collection.mem '+mem.get(P.userID));
-		chan.send(Embed);
+    if(!mem.has(P.userID))	mem.set(P.userID,dTime);        //Single branch if-cond. to check if the 'user' has been in a !offline state && is present in Map.mem       
+		Embed.setFooter('Presence Recorded at '+milliConv(dTime)+'\n@Collection.mem '+mem.get(P.userID));                //test-message in Embed.footer field, can be edited as desired
 	} else {
-		var diff = dTime - mem.get(P.userID);
-		Embed.setFooter('Presence Noted and terminated at '+uptime(diff)+'\nVal in Collection.mem '+mem.get(P.userID));
-		mem.delete(P.userID);
-		chan.send(Embed);
-	}
+    //-> Code for sending the total amount of time spent on one Presence State for a particular 'user'   
+		var diff = dTime - mem.get(P.userID);       //Total time spent on one Presence State
+		Embed.setFooter('Presence Noted and terminated at '+millConv(diff)+'\nVal in Collection.mem '+mem.get(P.userID)); //test-message in Embed.footer field, can be edited as desired
+    mem.delete(P.userID);                       //Pop the 'user' from Map.mem for the previous state
+  }*/
+  chan.send(Embed);
 });
-function uptime(milliseconds) {
+function milliConv(milliseconds) {
 	var seconds = ((milliseconds / 1000) % 60);
 	var minutes = ((milliseconds / (1000*60)) % 60);
 	var hours   = (milliseconds / (1000*60*60));
