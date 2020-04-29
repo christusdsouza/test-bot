@@ -147,7 +147,7 @@ client.on("presenceUpdate", async(oldMember, newMember) => {
   //var dTime= Date.now();
 	var P = new Discord.Presence(newMember.presence, newMember.clientStatus);
 	var chan = oldMember.guild.channels.find(chan => chan.name == 'presence');
-  const Embed = await new Discord.RichEmbed
+  const Embed = await new Discord.RichEmbed()
     .setThumbnail(newMember.user.avatarURL)
 	  .setColor(randColor())
 	  .setDescription('User: '+newMember.displayName+'\nActivity: '+P.status+' || Status: '+P.game)
