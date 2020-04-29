@@ -1,5 +1,5 @@
 module.exports = {
-	description: "uptime",
+	description: "Bot uptime",
 	execute(message,args,client) {
 		return message.channel.send(
 			'Status: '+client.status+

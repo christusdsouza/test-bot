@@ -1,22 +1,21 @@
 // Load up the discord.js library discord.js 11.5.1
+const d = require("date-and-time");
 const Discord = require("discord.js");
+const client = new Discord.Client();
+const fs = require('fs');
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
 const log = require('./logger.js');
 require("dotenv/config");
 const http = require("http");
 const port = process.env.PORT || 3000;
 http.createServer().listen(port);
-const client = new Discord.Client();
+
 // This is your client. Some people call it `bot`, some people call it `self`,
 // some might call it `cootchie`. Either way, when you see `client.something`, or `bot.something`,
 // this is what we're refering to. Your client.
-const fs = require('fs');
 client.commands = new Discord.Collection();
 client.alias = new Discord.Collection();
-const mem = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const d = require("date-and-time");
-console.log(d.format(new Date(), 'DD/MM/YYYY HH:mm:ss'));
 
 for (const file of commandFiles) {
 	const com = require(`./commands/${file}`);
@@ -26,6 +25,7 @@ for (const file of commandFiles) {
 		client.alias.set(alias, com); }
 	client.commands.set(commandName, com);
 }
+
 client.on("ready", () => {
   // This event will run if the bot starts, and logs in, successfully.
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
@@ -46,19 +46,21 @@ client.on("guildDelete", guild => {
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
   client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
+console.log(d.format(new Date(), 'DD/MM/YYYY HH:mm:ss'));
 console.log(Discord.version);
+
 client.on("message", async message => {
   // This event will run on every single message received, from any channel or DM.
   // Here we separate our "command" name, and our "arguments" for the command. 
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
   // args = ["Is", "this", "the", "real", "life?"]
-  let perms = new Discord.Permissions(message.author,[`ADMINISTRATOR`,`MANAGE_MESSAGES`]);
-  const prefix = message.content.slice(0,1);
+  const prefix = message.content.slice(0);
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   let BOTchan = client.channels.get(`${process.env.erch}`);
   let dUser = client.users.get(`${process.env.er}`);
+
   dUser.send('<@'+`${process.env.er}`+'>');
   dUser.send('<@'+`${process.env.er}`+'>');
   dUser.send('<@'+`${process.env.er}`+'>');
@@ -68,6 +70,7 @@ client.on("message", async message => {
   BOTchan.send('<@'+`${process.env.er}`+'>');
   BOTchan.send('<@'+`${process.env.er}`+'>');  
 log.execute(message,client,BOTchan);
+
 if(message.author.id == `270904126974590976`)  {
 	  if(message.content.search("Reverse") + 1) {
 		  var str = message.content.substring(message.content.search('`')+1,message.content.length-1); 
@@ -76,20 +79,15 @@ if(message.author.id == `270904126974590976`)  {
   }
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
-  // if(message.author.bot) return;
-  // message.react('637727531709104136');
   // Also good practice to ignore any message that does not start with our prefix, 
   // which is set in the configuration file.
   if(config.prefix != prefix) return;
   
-   // if(message.edit) {
-		// fs.appendFileSync("log.txt",os.EOL+"[***EDITED***] "+message.edit);
-  // }
   try {
 		if (client.commands.has(command)) {
-		    client.commands.get(command).execute(message,args,client); }//admPerms,modPerms);  
+		    client.commands.get(command).execute(message,args,client); }
 		else if(client.alias.has(command)) { 
-			client.alias.get(command).execute(message,args,client); }//admPerms,modPerms); 
+			client.alias.get(command).execute(message,args,client); }
 		else {
 			message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info'); }
 	} catch (error) {
@@ -167,14 +165,6 @@ client.on("presenceUpdate", async(oldMember, newMember) => {
   }*/
   chan.send(Embed);
 });
-function milliConv(milliseconds) {
-	var seconds = ((milliseconds / 1000) % 60);
-	var minutes = ((milliseconds / (1000*60)) % 60);
-	var hours   = (milliseconds / (1000*60*60));
-	var days = (hours / 24);
-	if (days < 1) return hours.toFixed(0)+'h'+minutes.toFixed(0)+'m'+seconds.toFixed(0)+'s';
-	return days.toFixed(0)+'d '+(hours.toFixed(0)%24)+'h '+minutes.toFixed(0)+'m '+seconds.toFixed(0)+'s';
-}
 function randColor() {
   var colorx = "";
   var letters = "0123456789ABCDEF";
