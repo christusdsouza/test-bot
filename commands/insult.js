@@ -21,9 +21,10 @@ module.exports = {
 		}) || "";
 		var len = insult.insult.length;
 		var rand = Math.floor((Math.random() * 10) % len);
-		if (!args[0])  return message.reply(insult.insult[rand]);
-		else if (args[0] === '<@631776475858599936>' && member.id ===`631776475858599936`)	
+		if (!args.length)  return message.reply(insult.insult[rand]);
+		else if (args[0] === '<@631776475858599936>' || member.id ===`631776475858599936`)	
 			return message.reply(insult.insult[rand] + '\nAint insulting myself you stupid bitch!!!');
+		else if(member)  return message.channel.send(member+' '+args.slice(0).join(' ') + " " + insult.insult[rand]);
 		else  return message.channel.send(args.join(' ') + " " + insult.insult[rand]);
 	}
 };
