@@ -1,13 +1,11 @@
 //Every Command has a Description, Syntax is an exception
 const Discord = require("discord.js");
 
-function getstuff(commands, commandName, flag = true) { 				//Map.Commands, Array.commandName, Boolean.flag= true:getSyntax, false:getDescription 
+function getstuff(commands, commandName, flagSyntax = true) { 				//Map.Commands, Array.commandName, Boolean.flag= true:getSyntax, false:getDescription 
 	var stuff = [];
 	for (let i = 0; i < commandName.length; i++) {
-		if (flag)
-			stuff.push(commands.get(commandName[i]).syntax);
-		else
-			stuff.push(commands.get(commandName[i]).description);
+		if (flagSyntax) stuff.push(commands.get(commandName[i]).syntax);
+		else stuff.push(commands.get(commandName[i]).description);
 	}
 	return stuff;
 };
@@ -15,12 +13,19 @@ function getstuff(commands, commandName, flag = true) { 				//Map.Commands, Arra
 module.exports = {
 	alias: "help",
 	description: "Get a list of commands",
+	/***
+	 * @params Collection message
+	 * @params Array args; args[0]: String command
+	 * @params this.Client client; Collection commands, Collection alias
+	 **/
 	async execute(message, args, client) {
 		try {
 			const panelCmds = new Discord.RichEmbed();
-			const commandName = client.commands.findKey(name => name.alias ? name.alias.includes(args[0]) : false) || args[0] || Array.from(client.commands.keys());
+			const commandName = client.commands.findKey((name) => {
+				name.alias ? name.alias.includes(args[0]) : false
+			}) || args[0] || Array.from(client.commands.keys());
 
-			if (args.length == 1 && client.commands.has(commandName))		//Specific Command Check 
+			if (args.length == 1 && client.commands.has(commandName))		//Single Command Check 
 				return commandHelp(message, args, client, panelCmds);
 
 			const syntax = getstuff(client.commands, commandName, true);
@@ -49,7 +54,9 @@ module.exports = {
 };
 
 function commandHelp(message, args, client, panelCmds) {
-	var commandName = client.commands.findKey(name => name.alias ? name.alias.includes(args[0]) || name.alias == args[0] : false) || args[0];
+	var commandName = client.commands.findKey((name) => {
+		name.alias ? name.alias.includes(args[0]) || name.alias == args[0] : false;
+	}) || args[0];
 	var syntax = client.commands.get(commandName).syntax || "";
 	var description = client.commands.get(commandName).description;
 	var alias = client.commands.get(commandName).alias || null;
@@ -57,15 +64,15 @@ function commandHelp(message, args, client, panelCmds) {
 	var cooldown = client.commands.get(commandName).cooldown;
 	panelCmds
 		.setColor('0x' + "0080FF")
-		.setTitle(commandName)															//COMMAND_NAME
-		.addField("Syntax:", "```" + commandName + ' ' + syntax + "```");				//SYNTAX - exceptional in many cmds instead may have COMMAND_NAME
+		.setTitle(commandName)
+		.addField("Syntax:", "```" + commandName + ' ' + syntax + "```");
 	if (alias) {
-		if (alias.constructor === String) panelCmds.addField("Alias:", alias); 			//ALIASes
+		if (alias.constructor === String) panelCmds.addField("Alias:", alias);
 		else if (alias instanceof Array && alias.length) panelCmds.addField("Alias:", alias.join(', '));
 	}
-	panelCmds.addField("Description", description);										//DESCRIPTION - made compulsory in all commands
-	if (cooldown) panelCmds.addField("Cooldown:", cooldown);							//COOLDOWN 
-	if (perms) panelCmds.addField("Required Permissions:", perms);						//PERMS - for server administrative and critical cmds
+	panelCmds.addField("Description", description);
+	if (cooldown) panelCmds.addField("Cooldown:", cooldown);
+	if (perms) panelCmds.addField("Required Permissions:", perms);
 
 	message.channel.send(panelCmds);
 }

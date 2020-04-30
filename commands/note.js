@@ -5,11 +5,11 @@ module.exports = {
 	description: "Leave a note in the chat for your fellow users",
 	cooldown: '5s',
 	execute(message, client, args) {
-		if (!prevPingCmd)
-			prevPingCmd = message.createdTimestamp;
-		else
-			var now = message.createdTimestamp;
-		if (now - prevPingCmd <= 5000) return message.reply('OOps! a little bit too quick there, get a hold on your feelings...').then(message.delete(3));
+		if (!prevPingCmd)  prevPingCmd = message.createdTimestamp;
+		else  var now = message.createdTimestamp;
+		if (now - prevPingCmd <= 5000) 
+			return message.reply('OOps! a little bit too quick there, get a hold on your feelings...')
+				.then(msg => msg.delete(3));
 
 		message.delete().catch(O_o => { });
 		const embed = new Discord.RichEmbed()

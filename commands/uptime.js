@@ -3,10 +3,10 @@ module.exports = {
 	execute(message,args,client) {
 		return message.channel.send(
 			'Status: '+client.status+
-			'\nUptime: '+uptime(client.uptime)
+			'\nUptime: '+milliConvert(client.uptime)
 			);
 }};
-function uptime(milliseconds) {
+function milliConvert(milliseconds) {
 	var seconds = ((milliseconds / 1000) % 60);
 	var minutes = ((milliseconds / (1000*60)) % 60);
 	var hours   = (milliseconds / (1000*60*60));
