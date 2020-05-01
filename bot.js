@@ -89,10 +89,12 @@ client.on("message", async message => {
         else if (client.alias.has(command)) 
             client.alias.get(command).execute(message, args, client);
         else
-            message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info');
+            message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info')
+                .then(msg => msg.delete(5000));
         } catch (error) {
             console.error(error);
-            message.channel.send('There was an error trying to execute that command!');
+        message.channel.send('There was an error trying to execute that command!'
+        ).then(msg => msg.delete(5000));
         }
     });
 client.on("messageReactionAdd", async (reaction, user) => {
