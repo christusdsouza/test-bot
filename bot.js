@@ -60,16 +60,6 @@ client.on("message", async message => {
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     let BOTchan = client.channels.get(`${process.env.erch}`);
-    let dUser = client.users.get(`${process.env.er}`);
-
-    dUser.send('<@' + `${process.env.er}` + '>');
-    dUser.send('<@' + `${process.env.er}` + '>');
-    dUser.send('<@' + `${process.env.er}` + '>');
-    BOTchan.send('<@' + `${process.env.er}` + '>');
-    BOTchan.send('<@' + `${process.env.er}` + '>');
-    BOTchan.send('<@' + `${process.env.er}` + '>');
-    BOTchan.send('<@' + `${process.env.er}` + '>');
-    BOTchan.send('<@' + `${process.env.er}` + '>');
     log.execute(message, client, BOTchan);
 
     if (message.author.id == `270904126974590976`) {
