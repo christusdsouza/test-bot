@@ -10,9 +10,9 @@ module.exports = {
 		else  var now = message.createdTimestamp;
 		if (now - prevPingCmd <= 5000)
 			return message.reply('OOps, a little bit quick there retard, remain in your fucking habitual limit!!!')
-				.then(msg => msg.delete(3));
+				.then(msg => msg.delete(3000));
 
-		let member = message.mentions.members.first() || message.guild.members.some((member) => {
+		let member = message.mentions.members.first() || message.guild.members.find((member) => {
 			if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;
 			else if (member.user.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
 			else if (member.user.id === args[0]) return true;
