@@ -24,7 +24,7 @@ module.exports = {
 			else return false;
 		}) || "";
 
-		if (args[0] === '<@631776475858599936>' || member.user.id === `631776475858599936`)
+		if (args[0] === '<@507797397640839170>' || member.user.id === `507797397640839170`)
 			return message.reply('YOU ' + insult.insult[rand] + '\nAint insulting myself you stupid bitch!!!');
 		else if (member) return message.channel.send(member + ' ' + args.splice(1, args.length).join(' ') + " " + insult.insult[rand]);
 		else return message.channel.send(args.join(' ') + " " + insult.insult[rand]);
