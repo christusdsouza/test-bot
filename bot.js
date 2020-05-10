@@ -1,11 +1,8 @@
-// Load up the discord.js library discord.js 11.5.1
-const d = require("date-and-time");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require('fs');
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
 const log = require('./logger.js');
-require("dotenv/config");
 const http = require("http");
 const port = process.env.PORT || 3000;
 http.createServer().listen(port);
@@ -32,22 +29,32 @@ client.on("ready", () => {
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
     // Example of changing the bot's playing game to something useful. `client.user` is what the
     // docs refer to as the "ClientUser".
-    client.user.setActivity(`Tyranny NUKE Humanity`, { type: `Watching` });
+    client.user.setPresence({
+      activity: {
+        name: "WWV v Tyrants",
+        type: "STREAMING",
+        url: `https://youtu.be/q0TjIl7BCE0`,
+        application: {
+          id: "631776475858599936",
+        },
+      },
+      status: "online",
+    });
     client.channels.find(chan => chan.id === `647162352797745172`).send('OOps, We good now; Back in Action');
 });
 
 client.on("guildCreate", guild => {
     // This event triggers when the bot joins a guild.
     console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-    client.user.setActivity(`Serving ${client.guilds.size} servers`);
+    client.user.setActivity(`Serving ${client.guilds.cache.size} servers`);
 });
 
 client.on("guildDelete", guild => {
     // this event triggers when the bot is removed from a guild.
     console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-    client.user.setActivity(`Serving ${client.guilds.size} servers`);
+    client.user.setActivity(`Serving ${client.guilds.cache.size} servers`);
 });
-console.log(d.format(new Date(), 'DD/MM/YYYY HH:mm:ss'));
+console.log(new Date());
 console.log(Discord.version);
 
 client.on("message", async message => {
@@ -59,9 +66,11 @@ client.on("message", async message => {
     const prefix = message.content.slice(0, 1);
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-    let BOTchan = client.channels.get(`${process.env.erch}`);
-    log.execute(message, client, BOTchan);
-
+    //log.execute(message, client, BOTchan);
+    if (command === "snipe") {
+      if (prevMessage) return message.channel.send(prevMessage.content);
+      else return message.channel.send("Nothing to see here...");
+    }
     if (message.author.id == `270904126974590976`) {
         if (message.content.search("Reverse") + 1) {
             var str = message.content.substring(message.content.search('`') + 1, message.content.length - 1);
@@ -106,6 +115,10 @@ client.on("messageReactionAdd", async (reaction, user) => {
         .addField(reaction.emoji.url)
         .setTimestamp();
     BOTchan.send(embed);
+});
+let prevMessage = undefined;
+client.on("messageDelete", async(message) => {
+    prevMessage = message;
 });
 client.on("messageUpdate", async (oldMessage, newMessage) => {
     if ((oldMessage.content.search("Work") + 1) || (oldMessage.content.search("Color") + 1)) {

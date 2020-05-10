@@ -1,4 +1,4 @@
-let prevPingCmd;
+let lastCmdTime;
 module.exports = {
     alias: 's',
     syntax: "<message>",
@@ -6,10 +6,10 @@ module.exports = {
     cooldown: '2s',
     execute(message, args) {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
-            if (!prevPingCmd) prevPingCmd = message.createdTimestamp;
+            if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
             else var now = message.createdTimestamp;
-            if (now - prevPingCmd <= 2000)
-                return message.reply('Looks like you got a lot to say @||.....||')
+            if (now - lastCmdTime <= 2000)
+                return message.reply('Looks like you got an awful lot to say @||.....||')
                     .then(msg => msg.delete(3000));
         }
         // makes the bot say something and delete the message. As an example, it's open to anyone to use. 

@@ -12,9 +12,9 @@ module.exports = {
         if (!args.length)
             return message.reply("PPSYCH didnt mention hammer-drop victim...").then(msg => msg.delete(10000));
 
-        let member = message.mentions.members.first() || message.guild.members.find((member) => {
+        let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {
             if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;
-            else if (member.user.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
+            else if (member.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
             else if (member.user.id === args[0]) return true;
             else if (member.user.discriminator === args[0]) return true;
             else return false;

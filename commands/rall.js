@@ -1,5 +1,5 @@
-const Discord = require("discord.js");
-let prevPingCmd;
+//const MessageEmbed = require("discord.js").MessageEmbed;
+let lastCmdTime;
 
 module.exports = {
 	alias: ['roles','allroles'],
@@ -9,9 +9,9 @@ module.exports = {
 		if (!message.member.hasPermission(`ADMINISTRATOR`))
 			return ;
 
-		if (!prevPingCmd) prevPingCmd = message.createdTimestamp;
+		if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
 		else var now = message.createdTimestamp;
-		if (now - prevPingCmd <= 60000) 
+		if (now - lastCmdTime <= 60000) 
 			return message.reply('This is ILLEGAL, Calm DOWN')
 				.then(msg => msg.delete(5000));
 

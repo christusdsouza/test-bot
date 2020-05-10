@@ -1,4 +1,4 @@
-let prevPingCmd;
+let lastCmdTime;
 module.exports = {
 	alias: "stag",
 	syntax: " <user> <amount>",
@@ -11,27 +11,28 @@ module.exports = {
 	async execute(message, args) {
 		try {
 			if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
-				if (!prevPingCmd) prevPingCmd = message.createdTimestamp;
+				if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
 				else var now = message.createdTimestamp;
-				if (now - prevPingCmd <= 31000)
+				if (now - lastCmdTime <= 31000)
 					return message.reply('Scoot away dumb bitch, I have some mentions to do...')
 						.then(msg => msg.delete(3000));
 			}
-			if (!(args.length < 2)) return message.reply("You missed some stuff").then(msg => msg.delete(10000));
-			let chan = client.channels.find(chan => chan.id === `647162352797745172`);
-			let member = message.mentions.members.first() || message.guild.members.find((member) => {
+			if (args.length < 2) return message.reply("You missed some stuff").then(msg => msg.delete(10000));
+			let chan = client.channels.cache.find(chan => chan.id === `647162352797745172`);
+			let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {
 				if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;
-				else if (member.user.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
+				else if (member.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
 				else if (member.user.id === args[0]) return true;
 				else if (member.user.discriminator === args[0]) return true;
 				else return false;
 			});
+			var count = parseInt(args[1]);
 			if (!member) return message.reply(`FFS who is this mf youre trying to ping man !`).then(msg => msg.delete(10000));
-			if (!isNaN(args[1]) && !args[1] <= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete(10000));
+			if (!isNaN(count) && !count <= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete(10000));
 
 			//Ping starts here
 			message.channel.send("Nuking the PING engine").then(msg => msg.delete(10000));
-			for (let i = 0; i < args[1]; i++) {
+			for (let i = 0; i < count; i++) {
 				chan.send(args[0]);
 			}
 			return message.channel.send("DONE FFS");

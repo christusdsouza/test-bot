@@ -1,14 +1,14 @@
 const insult = require('./../assets/insult.json');
-let prevPingCmd;
+let lastCmdTime;
 module.exports = {
 	alias: ['in', 'roast', 'burn', 'target'],
 	syntax: " $$$~Youre looking for a syntax?",
 	cooldown: "2s",
 	description: "Just nuke that faggot already! So dont forget to mention THEM. **Becareful not to hurt yourself** ~experimental~",
 	execute(message, args) {
-		if (!prevPingCmd)  prevPingCmd = message.createdTimestamp;
+		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 		else  var now = message.createdTimestamp;
-		if (now - prevPingCmd <= 2000)
+		if (now - lastCmdTime <= 2000)
 			return message.reply('OOps, a little bit quick there retard, remain in your fucking habitual limit!!!')
 				.then(msg => msg.delete(3000));
 
@@ -16,9 +16,9 @@ module.exports = {
 		var rand = Math.floor((Math.random() * 10) % len);
 		if (!args.length) return message.reply(insult.insult[rand]);
 		
-		let member = message.mentions.members.first() || message.guild.members.find((member) => {
+		let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {
 			if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;
-			else if (member.user.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
+			else if (member.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
 			else if (member.user.id === args[0]) return true;
 			else if (member.user.discriminator === args[0]) return true;
 			else return false;

@@ -4,7 +4,7 @@ module.exports = {
 		return message.channel.send(
 			'Status: '+client.status+
 			'\nUptime: '+milliConvert(client.uptime)
-			);
+		);
 }};
 function milliConvert(milliseconds) {
 	var seconds = ((milliseconds / 1000) % 60);
