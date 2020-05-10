@@ -1,14 +1,14 @@
 {
   "name": "test-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is my discord test-bot currently for personal use and setup in a private server",
   "main": "bot.js",
   "dependencies": {
+    "axios": "^0.19.2",
+    "covid-facts": "^1.0.1",
+    "covid19-api": "^1.2.1",
     "date-and-time": "^0.10.0",
-    "discord.io": "^2.5.3",
-    "discord.js": "^11.5.1",
-    "dotenv": "^8.2.0",
-    "winston": "^3.2.1"
+    "discord.js": "^12.2.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -23,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/christusdsouza/test-bot/issues"
   },
-  "homepage": "https://github.com/christusdsouza/test-bot#readme"
+  "homepage": "https://github.com/christusdsouza/test-bot#readme",
+  "keywords": []
 }
