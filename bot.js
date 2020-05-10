@@ -150,53 +150,55 @@ client.on("emojiDelete", async (emoji) => {
   chan.send(embed);*/
 });
 client.on("presenceUpdate", async (oldMember, newMember) => {
-    var member = oldMember || newMember;  //nikal lavde --no running twice
-    var chan = member.guild.channels.cache.find(chan => chan.name === 'presence');
-    var oldClientStatus = (JSON.stringify(oldMember.clientStatus)).match(/[^{"}]+/g);
-    var newClientStatus = (JSON.stringify(newMember.clientStatus)).match(/[^{"}]+/g);
-    var oldActivityName, oldActivityType, newActivityName, newActivityType;
+    try{
 
-    if(oldMember.activity) {
-        oldActivityName = oldMember.activity.name;
-        oldActivityType = oldMember.activity.type;
-    } else { oldActivityName = 'Nothing', oldActivityType = 'Doing' }
-    if(newMember.activity) {
-        newActivityName = newMember.activity.name;
-        newActivityType = newMember.activity.type;
-    } else { newActivityName = 'Nothing', newActivityType = 'Doing' }
-  
-    const Embed = await new Discord.MessageEmbed()
-        .setTitle('User Activity')
-        .setColor(randColor())
-        .setThumbnail(newMember.user.avatarURL)
-        .setDescription(newMember.user.username)
-        .addField('Previous Activity',
-            '\nPlatform: ' + oldClientStatus.join(' ') + 
-            '\n' + oldActivityType + ' ' + oldActivityName+
-            '\nStatus: ' + oldMember.status
-        )
-        .addField(
-            'Current Activity',
-            '\nPlatform: ' + newClientStatus.join(' ') +
-            '\n' + newActivityType + ' ' + newActivityName +
-            '\nStatus: ' + newMember.status
-        )
-        .setThumbnail(newMember.user.avatarURL())
-        .setFooter('', newMember.guild.iconURL())
-        .setTimestamp();
+     var member = oldMember || newMember;  //nikal lavde --no running twice
+     var chan = member.guild.channels.cache.find(chan => chan.name === 'presence');
+     var oldClientStatus = (JSON.stringify(oldMember.clientStatus)).match(/[^{"}]+/g);
+     var newClientStatus = (JSON.stringify(newMember.clientStatus)).match(/[^{"}]+/g);
+     var oldActivityName, oldActivityType, newActivityName, newActivityType;
 
-    /* Condition to check if a 'user' is in a !offline state and also track the total time spent in a !offline state till 'user':offline
-    if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
-      {
-      if(!mem.has(P.userID))	mem.set(P.userID,dTime);        //Single branch if-cond. to check if the 'user' has been in a !offline state && is present in Map.mem       
-          Embed.setFooter('Presence Recorded at '+milliConv(dTime)+'\n@Collection.mem '+mem.get(P.userID));                //test-message in Embed.footer field, can be edited as desired
-      } else {
-      //-> Code for sending the total amount of time spent on one Presence State for a particular 'user'   
-          var diff = dTime - mem.get(P.userID);       //Total time spent on one Presence State
-          Embed.setFooter('Presence Noted and terminated at '+millConv(diff)+'\nVal in Collection.mem '+mem.get(P.userID)); //test-message in Embed.footer field, can be edited as desired
-      mem.delete(P.userID);                       //Pop the 'user' from Map.mem for the previous state
-    }*/
-    chan.send(Embed);
+     if(oldMember.activity) {
+         oldActivityName = oldMember.activity.name;
+         oldActivityType = oldMember.activity.type;
+     } else { oldActivityName = 'Nothing', oldActivityType = 'Doing' }
+     if(newMember.activity) {
+         newActivityName = newMember.activity.name;
+         newActivityType = newMember.activity.type;
+     } else { newActivityName = 'Nothing', newActivityType = 'Doing' }
+    
+     const Embed = await new Discord.MessageEmbed()
+         .setTitle('User Activity')
+         .setColor(randColor())
+         .setThumbnail(newMember.user.avatarURL)
+         .setDescription(newMember.user.username)
+         .addField('Previous Activity',
+             '\nPlatform: ' + oldClientStatus.join(' ') + 
+             '\n' + oldActivityType + ' ' + oldActivityName+
+             '\nStatus: ' + oldMember.status
+         )
+         .addField(
+             'Current Activity',
+             '\nPlatform: ' + newClientStatus.join(' ') +
+             '\n' + newActivityType + ' ' + newActivityName +
+             '\nStatus: ' + newMember.status
+         )
+         .setThumbnail(newMember.user.avatarURL())
+         .setFooter('', newMember.guild.iconURL())
+         .setTimestamp();
+     chan.send(Embed);
+    } catch(e) { }
+     /* Condition to check if a 'user' is in a !offline state and also track the total time spent in a !offline state till 'user':offline
+     if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
+       {
+       if(!mem.has(P.userID))	mem.set(P.userID,dTime);        //Single branch if-cond. to check if the 'user' has been in a !offline state && is present in Map.mem       
+           Embed.setFooter('Presence Recorded at '+milliConv(dTime)+'\n@Collection.mem '+mem.get(P.userID));                //test-message in Embed.footer field, can be edited as desired
+       } else {
+       //-> Code for sending the total amount of time spent on one Presence State for a particular 'user'   
+           var diff = dTime - mem.get(P.userID);       //Total time spent on one Presence State
+           Embed.setFooter('Presence Noted and terminated at '+millConv(diff)+'\nVal in Collection.mem '+mem.get(P.userID)); //test-message in Embed.footer field, can be edited as desired
+       mem.delete(P.userID);                       //Pop the 'user' from Map.mem for the previous state
+     }*/
 });
 function randColor() {
     var colorx = "";
