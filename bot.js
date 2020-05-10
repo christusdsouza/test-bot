@@ -150,8 +150,8 @@ client.on("emojiDelete", async (emoji) => {
   chan.send(embed);*/
 });
 client.on("presenceUpdate", async (oldMember, newMember) => {
-    if (!oldMember) return;  //nikal lavde --no running twice
-    var chan = oldMember.guild.channels.cache.find(chan => chan.name === 'presence');
+    var member = oldMember || newMember;  //nikal lavde --no running twice
+    var chan = member.guild.channels.cache.find(chan => chan.name === 'presence') || ;
     var oldClientStatus = (JSON.stringify(oldMember.clientStatus)).match(/[^{"}]+/g);
     var newClientStatus = (JSON.stringify(newMember.clientStatus)).match(/[^{"}]+/g);
     var oldActivityName, oldActivityType, newActivityName, newActivityType;
