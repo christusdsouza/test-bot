@@ -40,7 +40,7 @@ client.on("ready", () => {
       },
       status: "online",
     });
-    client.channels.find(chan => chan.id === `647162352797745172`).send('OOps, We good now; Back in Action');
+    client.channels.cache.find(chan => chan.id === `647162352797745172`).send('OOps, We good now; Back in Action');
 });
 
 client.on("guildCreate", guild => {
@@ -97,7 +97,7 @@ client.on("message", async message => {
         }
     });
 client.on("messageReactionAdd", async (reaction, user) => {
-    let BOTchan = client.channels.find(chan => chan.name === `dyno-logs`);
+    let BOTchan = client.channels.cache.find(chan => chan.name === `dyno-logs`);
     var colorx = randColor();
     var letters = "0123456789ABCDEF";
     for (var i = 0; i < 6; i++)  colorx += letters[Math.floor(Math.random() * 16)];
@@ -131,7 +131,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 client.on("emojiDelete", async (emoji) => {
     //var audits = new GuildAction
     var colorx = randColor();
-    var chan = emoji.guild.channels.find(chan => chan.id === `569192598313500683`);
+    var chan = emoji.guild.channels.cache.find(chan => chan.id === `569192598313500683`);
     chan.send('Emoji Deleted: ' + emoji + '\nLINK: ' + emoji.url);
 	/*const embed = new Discord.RichEmbed()
 		.setColor("0x" + colorx)
@@ -152,7 +152,7 @@ client.on("emojiDelete", async (emoji) => {
 client.on("presenceUpdate", async (oldMember, newMember) => {
     //var dTime= Date.now();
     var P = new Discord.Presence(newMember.presence, newMember.clientStatus);
-    var chan = oldMember.guild.channels.find(chan => chan.name == 'presence');
+    var chan = oldMember.guild.channels.cache.find(chan => chan.name == 'presence');
     const Embed = await new Discord.RichEmbed()
         .setThumbnail(newMember.user.avatarURL)
         .setColor(randColor())
