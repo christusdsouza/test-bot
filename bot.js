@@ -26,16 +26,16 @@ for (const file of commandFiles) {
 
 client.on("ready", () => {
     // This event will run if the bot starts, and logs in, successfully.
-    console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
+    console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
     // Example of changing the bot's playing game to something useful. `client.user` is what the
     // docs refer to as the "ClientUser".
     client.user.setPresence({
       activity: {
-        name: "WWV v Tyrants",
-        type: "STREAMING",
-        url: `https://youtu.be/q0TjIl7BCE0`,
+        name: 'WWV v Tyrants',
+        type: 'STREAMING',
+        url: `https://www.youtube.com/watch?v=q0TjIl7BCE0`,
       },
-      status: "online",
+      status: 'online',
     });
     client.channels.cache.find(chan => chan.id === `647162352797745172`).send('OOps, We good now; Back in Action');
 });
