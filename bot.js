@@ -34,9 +34,6 @@ client.on("ready", () => {
         name: "WWV v Tyrants",
         type: "STREAMING",
         url: `https://youtu.be/q0TjIl7BCE0`,
-        application: {
-          id: "631776475858599936",
-        },
       },
       status: "online",
     });
