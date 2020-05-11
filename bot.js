@@ -30,12 +30,12 @@ client.on("ready", () => {
     // Example of changing the bot's playing game to something useful. `client.user` is what the
     // docs refer to as the "ClientUser".
     client.user.setPresence({
-      activity: {
-        name: 'WWV v Tyrants',
-        type: 'STREAMING',
-        url: `https://www.youtube.com/watch?v=q0TjIl7BCE0`,
-      },
-      status: 'online',
+        activity: {
+            name: 'WWV v Tyrants',
+            type: 'STREAMING',
+            url: `https://www.youtube.com/watch?v=q0TjIl7BCE0`,
+        },
+        status: 'online',
     });
     client.channels.cache.find(chan => chan.id === `647162352797745172`).send('OOps, We good now; Back in Action');
 });
@@ -65,8 +65,8 @@ client.on("message", async message => {
     const command = args.shift().toLowerCase();
     //log.execute(message, client, BOTchan);
     if (command === "snipe") {
-      if (prevMessage) return message.channel.send(prevMessage.content);
-      else return message.channel.send("Nothing to see here...");
+        if (prevMessage) return message.channel.send(prevMessage.content);
+        else return message.channel.send("Nothing to see here...");
     }
     if (message.author.id == `270904126974590976`) {
         if (message.content.search("Reverse") + 1) {
@@ -82,17 +82,17 @@ client.on("message", async message => {
     try {
         if (client.commands.has(command))
             client.commands.get(command).execute(message, args, client);
-        else if (client.alias.has(command)) 
+        else if (client.alias.has(command))
             client.alias.get(command).execute(message, args, client);
         else
             message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info')
                 .then(msg => msg.delete(5000));
-        } catch (error) {
-            console.error(error);
+    } catch (error) {
+        console.error(error);
         message.channel.send('There was an error trying to execute that command!'
         ).then(msg => msg.delete(5000));
-        }
-    });
+    }
+});
 client.on("messageReactionAdd", async (reaction, user) => {
     let BOTchan = client.channels.cache.find(chan => chan.name === `dyno-logs`);
     var colorx = randColor();
@@ -114,13 +114,13 @@ client.on("messageReactionAdd", async (reaction, user) => {
     BOTchan.send(embed);
 });
 let prevMessage = undefined;
-client.on("messageDelete", async(message) => {
+client.on("messageDelete", async (message) => {
     prevMessage = message;
 });
 client.on("messageUpdate", async (oldMessage, newMessage) => {
     if ((oldMessage.content.search("Work") + 1) || (oldMessage.content.search("Color") + 1)) {
         if (oldMessage.author.id == `270904126974590976`) {
-            if (!oldMessage.content)  return;
+            if (!oldMessage.content) return;
             newMessage.channel.send(oldMessage.content);
         }
     } else return;
@@ -147,60 +147,67 @@ client.on("emojiDelete", async (emoji) => {
   chan.send(embed);*/
 });
 client.on("presenceUpdate", async (oldMember, newMember) => {
-    try{
-     var member = oldMember || newMember; // fix for the twice run
-     var chan = member.guild.channels.cache.find(chan => chan.name === 'presence');
-     var oldClientStatus = (JSON.stringify(oldMember.clientStatus)).match(/[^{"}]+/g);
-     var newClientStatus = (JSON.stringify(newMember.clientStatus)).match(/[^{"}]+/g);
-     var oldActivityName, oldActivityType, newActivityName, newActivityType;
+    try {
+        var member = oldMember || newMember; // fix for the twice run
+        var chan = member.guild.channels.cache.find(chan => chan.name === 'presence');
+        var oldClientStatus = (JSON.stringify(oldMember.clientStatus)).match(/[^{"}]+/g);
+        var newClientStatus = (JSON.stringify(newMember.clientStatus)).match(/[^{"}]+/g);
+        var oldActivity, newActivity, stringy;
+        if (oldMember.activities) {
+            stringy = JSON.stringify(oldMember.activities[0], replacer(oldMember.activities[0]));
+            oldActivity = stringy.match(/[^{"}]+/g).join(' ');
+        } else { oldActivityName = 'Nothing', oldActivityType = 'Doing' }
+        if (newMember.activities) {
+            stringy = JSON.stringify(newMember.activities[0], replacer(newMember.activities[0]));
+            newActivity = stringy.match(/[^{"}]+/g).join(' ');
+        } else { newActivityName = 'Nothing', newActivityType = 'Doing' }
 
-     if(oldMember.activity) {
-         oldActivityName = oldMember.activity.name;
-         oldActivityType = oldMember.activity.type;
-     } else { oldActivityName = 'Nothing', oldActivityType = 'Doing' }
-     if(newMember.activity) {
-         newActivityName = newMember.activity.name;
-         newActivityType = newMember.activity.type;
-     } else { newActivityName = 'Nothing', newActivityType = 'Doing' }
-    
-     const Embed = await new Discord.MessageEmbed()
-         .setTitle('User Activity')
-         .setColor(randColor())
-         .setThumbnail(newMember.user.avatarURL)
-         .setDescription(newMember.user.username)
-         .addField('Previous Activity',
-             '\nPlatform: ' + oldClientStatus.join(' ') + 
-             '\n' + oldActivityType + ' ' + oldActivityName+
-             '\nStatus: ' + oldMember.status
-         )
-         .addField(
-             'Current Activity',
-             '\nPlatform: ' + newClientStatus.join(' ') +
-             '\n' + newActivityType + ' ' + newActivityName +
-             '\nStatus: ' + newMember.status
-         )
-         .setThumbnail(newMember.user.avatarURL())
-         .setFooter('', newMember.guild.iconURL())
-         .setTimestamp();
-     chan.send(Embed);
-    } catch(e) { }
-     /* Condition to check if a 'user' is in a !offline state and also track the total time spent in a !offline state till 'user':offline
-     if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
-       {
-       if(!mem.has(P.userID))	mem.set(P.userID,dTime);        //Single branch if-cond. to check if the 'user' has been in a !offline state && is present in Map.mem       
-           Embed.setFooter('Presence Recorded at '+milliConv(dTime)+'\n@Collection.mem '+mem.get(P.userID));                //test-message in Embed.footer field, can be edited as desired
-       } else {
-       //-> Code for sending the total amount of time spent on one Presence State for a particular 'user'   
-           var diff = dTime - mem.get(P.userID);       //Total time spent on one Presence State
-           Embed.setFooter('Presence Noted and terminated at '+millConv(diff)+'\nVal in Collection.mem '+mem.get(P.userID)); //test-message in Embed.footer field, can be edited as desired
-       mem.delete(P.userID);                       //Pop the 'user' from Map.mem for the previous state
-     }*/
+        const Embed = await new Discord.MessageEmbed()
+            .setTitle('User Activity')
+            .setColor(randColor())
+            .setThumbnail(newMember.user.avatarURL)
+            .setDescription(newMember.user.username)
+            .addField('Previous Activity',
+                '\nPlatform: ' + oldClientStatus.join(' ') +
+                '\n' + oldActivity +
+                '\nStatus: ' + oldMember.status
+            )
+            .addField(
+                'Current Activity',
+                '\nPlatform: ' + newClientStatus.join(' ') +
+                '\n' + newActivity +
+                '\nStatus: ' + newMember.status
+            )
+            .setThumbnail(newMember.user.avatarURL())
+            .setFooter('', newMember.guild.iconURL())
+            .setTimestamp();
+        chan.send(Embed);
+    } catch (e) { }
+    /* Condition to check if a 'user' is in a !offline state and also track the total time spent in a !offline state till 'user':offline
+    if (P.status === `dnd` || P.status === `online` || P.status === `idle`)
+      {
+      if(!mem.has(P.userID))	mem.set(P.userID,dTime);        //Single branch if-cond. to check if the 'user' has been in a !offline state && is present in Map.mem       
+          Embed.setFooter('Presence Recorded at '+milliConv(dTime)+'\n@Collection.mem '+mem.get(P.userID));                //test-message in Embed.footer field, can be edited as desired
+      } else {
+      //-> Code for sending the total amount of time spent on one Presence State for a particular 'user'   
+          var diff = dTime - mem.get(P.userID);       //Total time spent on one Presence State
+          Embed.setFooter('Presence Noted and terminated at '+millConv(diff)+'\nVal in Collection.mem '+mem.get(P.userID)); //test-message in Embed.footer field, can be edited as desired
+      mem.delete(P.userID);                       //Pop the 'user' from Map.mem for the previous state
+    }*/
 });
 function randColor() {
     var colorx = "";
     var letters = "0123456789ABCDEF";
     for (var i = 0; i < 6; i++)  colorx += letters[Math.floor(Math.random() * 16)];
     return ("0x" + colorx);
+}
+function replacer(obj) {
+    var whitelist = [];
+    for (var key in obj) {
+        // Filtering out properties
+        if (typeof obj[key] != 'object' && obj[key] != null && isNaN(obj[key]) && key != 'syncID') whitelist.push(key);
+    }
+    return whitelist;
 }
 function reverseString(str) {
     var newString = "";
