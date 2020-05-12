@@ -15,7 +15,9 @@ module.exports = {
 			if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 			else  var now = message.createdTimestamp;
 			if (now - lastCmdTime <= 2000)    
-				return message.reply('wait, zara sabar karo...').then(msg => msg.delete({timeout:3000}));
+				return message.reply(
+					'Cooldown: '+`${new Date(now - lastCmdTime).getSeconds}`+'\nwait, zara sabar karo...')
+						.then(msg => msg.delete({timeout:3000}));
 
 			let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {
 				if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;

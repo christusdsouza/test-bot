@@ -10,7 +10,10 @@ module.exports = {
 		if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
 		else var now = message.createdTimestamp;
 		if (now - lastCmdTime <= 2000)
-			return message.reply('Suspicious amount of searches being pulled up there!').then(msg => msg.delete({timeout:3000}));
+			return message.reply(
+				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +
+				'Suspicious amount of searches being pulled up there!')
+					.then(msg => msg.delete({timeout:3000}));
 
 		if (args) {
 			let myRole = message.guild.roles.cache.find(role => role.name.toUpperCase() === args.join(' ').toUpperCase());

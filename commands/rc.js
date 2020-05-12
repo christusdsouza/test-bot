@@ -15,8 +15,11 @@ module.exports = {
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 		else  var now = message.createdTimestamp;
 		if (now - lastCmdTime <= 5000) 
-			return message.reply('Enough Homo, thats enough of Colors...')
-				.then(msg => msg.delete({timeout:3000}));
+			return message.reply(
+				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +
+				'Enough Homo, thats enough of Colors...')
+					.then(msg => msg.delete({timeout:3000})
+			);
 		var role = message.guild.roles.cache.find(role => role.name === args[0] || role.id === args[0]);
 		if (role) {
 			var colorx = '0x' + args[1].split("#");
