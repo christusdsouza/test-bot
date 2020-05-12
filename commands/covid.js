@@ -18,7 +18,7 @@ module.exports = {
     }
     let embed = new MessageEmbed();
     if (args.length) {
-      var country = args.join(" ");
+      var country = args.join(" ").toLowerCase();
       var response = await tracker
         .getReportsByCountries([country])
         .catch((error) => {
