@@ -27,7 +27,7 @@ module.exports = {
 	async execute(message, args, client) {
 		try {
 			const panelCmds = new MessageEmbed();
-			const commandName = client.commands.cache.findKey((name) => {
+			const commandName = client.commands.find((name) => {
 				name.alias ? name.alias.includes(args[0]) : false
 			}) || args[0] || Array.from(client.commands.keys());
 
@@ -58,7 +58,7 @@ module.exports = {
 };
 
 function commandHelp(message, args, client, panelCmds) {
-	var commandName = client.commands.cache.findKey((name) => {
+	var commandName = client.commands.find((name) => {
 		name.alias ? name.alias.includes(args[0]) || name.alias == args[0] : false;
 	}) || args[0];
 	var syntax = client.commands.get(commandName).syntax || "";
