@@ -2,7 +2,7 @@ module.exports = {
 	description: "Bot uptime",
 	execute(message,args,client) {
 		return message.channel.send(
-			'Status: '+client.status+
+			'Status: '+client.ws.status+
 			'\nUptime: '+milliConvert(client.uptime)
 		);
 }};
