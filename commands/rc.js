@@ -1,4 +1,5 @@
 const MessageEmbed = require('discord.js').MessageEmbed;
+let lastCmdTime;
 module.exports = {
 	syntax: "<role-name> <color-code>",
 	description: "Assign a fancy color to any role\nHex color-codes are appreciated",

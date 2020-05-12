@@ -1,3 +1,4 @@
+let lastCmdTime;
 module.exports = {
 	syntax: "<user> <message>",
 	alias: "dm",

@@ -1,7 +1,7 @@
 const MessageEmbed = require("discord.js").MessageEmbed;
 const tracker = require("covid19-api");
 const facts = require("covid-facts");
-
+let lastCmdTime;
 module.exports = {
   syntax: "\n/covid <country>",
   description: "Get COVID-19 stats\nGlobal and Country\nExample:`/covid` --Global stats, `/covid us` --US stats",
