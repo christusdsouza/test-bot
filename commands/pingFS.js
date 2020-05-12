@@ -28,7 +28,7 @@ module.exports = {
 			});
 			var count = parseInt(args[1]);
 			if (!member) return message.reply(`FFS who is this mf youre trying to ping man !`).then(msg => msg.delete({timeout:10000}));
-			if (!isNaN(count) && !count <= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({timeout:10000}));
+			if (isNaN(count) || count >= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({timeout:10000}));
 
 			//Ping starts here
 			message.channel.send("Nuking the PING engine").then(msg => msg.delete({timeout:10000}));
