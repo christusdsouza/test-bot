@@ -98,7 +98,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
     var colorx = randColor();
     var letters = "0123456789ABCDEF";
     for (var i = 0; i < 6; i++)  colorx += letters[Math.floor(Math.random() * 16)];
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
         .setColor()
         .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
         .setThumbnail(reaction.message.guild.iconURL)
@@ -130,7 +130,7 @@ client.on("emojiDelete", async (emoji) => {
     var colorx = randColor();
     var chan = emoji.guild.channels.cache.find(chan => chan.id === `569192598313500683`);
     chan.send('Emoji Deleted: ' + emoji + '\nLINK: ' + emoji.url);
-	/*const embed = new Discord.RichEmbed()
+	/*const embed = new Discord.MessageEmbed()
 		.setColor("0x" + colorx)
 		.setThumbnail(emoji.guild.iconURL)
 		.setDescription(
