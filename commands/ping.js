@@ -5,6 +5,6 @@ module.exports = {
     // The second ping is an average latency between the bot and the websocket server (one-way, not round-trip)
 		const msg = await message.channel.send("Ping?")
 			.catch(O_o => { });
-		msg.edit(`Lond! Latency is ${msg.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+		msg.edit(`Lond! Latency is ${msg.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
 	}
 };
