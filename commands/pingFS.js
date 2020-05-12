@@ -7,8 +7,9 @@ module.exports = {
 	/***
 	 * @params Collection message
 	 * @params Array args; args[0]: GuildMember member, args[1]: int count
+	 * @params this.Client client
 	 **/
-	async execute(message, args) {
+	async execute(message, args, client) {
 		try {
 			if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
 				if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
