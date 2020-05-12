@@ -1,5 +1,6 @@
 module.exports = {
 	syntax: "<user> <message>",
+	alias: "dm",
 	description: "For the weak hearted, speak it out in anonmity\nShoot A Directmessage via via",
 	cooldown: '2s',
 	/**
