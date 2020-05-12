@@ -9,13 +9,13 @@ module.exports = {
 	 */
 	execute(message, args) {
 		if (!message.member.hasPermission(`ADMINISTRATOR`))
-			return message.reply("Sorry, you don't have permissions to use this!").then(msg => msg.delete(10000));
+			return message.reply("Sorry, you don't have permissions to use this!").then(msg => msg.delete({timeout:10000}));
 			
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 		else  var now = message.createdTimestamp;
 		if (now - lastCmdTime <= 5000) 
 			return message.reply('Enough Homo, thats enough of Colors...')
-				.then(msg => msg.delete(3000));
+				.then(msg => msg.delete({timeout:3000}));
 		var role = message.guild.roles.cache.find(role => role.name === args[0] || role.id === args[0]);
 		if (role) {
 			var colorx = '0x' + args[1].split("#");
@@ -25,6 +25,6 @@ module.exports = {
 				.setDescription("Changed to #" + args[1]);
 			return message.channel.send(embed);
 		}
-		return message.reply("No such role").then(msg => msg.delete(10000));
+		return message.reply("No such role").then(msg => msg.delete({timeout:10000}));
 	}
 };

@@ -14,7 +14,7 @@ module.exports = {
 			if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 			else  var now = message.createdTimestamp;
 			if (now - lastCmdTime <= 2000)    
-				return message.reply('wait, zara sabar karo...').then(msg => msg.delete(3000));
+				return message.reply('wait, zara sabar karo...').then(msg => msg.delete({timeout:3000}));
 
 			let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {
 				if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;
@@ -27,13 +27,13 @@ module.exports = {
 				if (member) {
 					if(member.id===client.user.id || member.user.bot)  return message.reply("Don't simp on me nigga!!!");
 					var text = args.slice(1).join(' ');
-					member.send(text).then(message.delete(3000));
+					member.send(text).then(message.delete({timeout:3000}));
 					message.reply("*wink wink* your whisper has travelled overseas successfully")
-						.then(msg => msg.delete(3000));
+						.then(msg => msg.delete({timeout:3000}));
 				}
 				else {
 					return message.channel.send(`FFS who is this mf youre trying to ping man !`)
-						.then(msg => msg.delete(10000));
+						.then(msg => msg.delete({timeout:10000}));
 				}
 			}
 			else return;

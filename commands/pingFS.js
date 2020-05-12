@@ -15,9 +15,9 @@ module.exports = {
 				else var now = message.createdTimestamp;
 				if (now - lastCmdTime <= 31000)
 					return message.reply('Scoot away dumb bitch, I have some mentions to do...')
-						.then(msg => msg.delete(3000));
+						.then(msg => msg.delete({timeout:3000}));
 			}
-			if (args.length < 2) return message.reply("You missed some stuff").then(msg => msg.delete(10000));
+			if (args.length < 2) return message.reply("You missed some stuff").then(msg => msg.delete({timeout:10000}));
 			let chan = client.channels.cache.find(chan => chan.id === `647162352797745172`);
 			let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {
 				if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;
@@ -27,11 +27,11 @@ module.exports = {
 				else return false;
 			});
 			var count = parseInt(args[1]);
-			if (!member) return message.reply(`FFS who is this mf youre trying to ping man !`).then(msg => msg.delete(10000));
-			if (!isNaN(count) && !count <= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete(10000));
+			if (!member) return message.reply(`FFS who is this mf youre trying to ping man !`).then(msg => msg.delete({timeout:10000}));
+			if (!isNaN(count) && !count <= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({timeout:10000}));
 
 			//Ping starts here
-			message.channel.send("Nuking the PING engine").then(msg => msg.delete(10000));
+			message.channel.send("Nuking the PING engine").then(msg => msg.delete({timeout:10000}));
 			for (let i = 0; i < count; i++) {
 				chan.send(args[0]);
 			}

@@ -14,7 +14,7 @@ module.exports = {
       if (now - lastCmdTime <= 30000)
         return message
           .reply("Looks like you got a lot to say @||.....||")
-          .then((msg) => msg.delete(3000));
+          .then((msg) => msg.delete({timeout:3000}));
     }
     let embed = new MessageEmbed();
     if (args.length) {

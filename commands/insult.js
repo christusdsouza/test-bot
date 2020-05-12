@@ -10,7 +10,7 @@ module.exports = {
 		else  var now = message.createdTimestamp;
 		if (now - lastCmdTime <= 2000)
 			return message.reply('OOps, a little bit quick there retard, remain in your fucking habitual limit!!!')
-				.then(msg => msg.delete(3000));
+				.then(msg => msg.delete({timeout:2000}));
 
 		var len = insult.insult.length;
 		var rand = Math.floor((Math.random() * 10) % len);

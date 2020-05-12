@@ -13,7 +13,7 @@ module.exports = {
 		else var now = message.createdTimestamp;
 		if (now - lastCmdTime <= 60000) 
 			return message.reply('This is ILLEGAL, Calm DOWN')
-				.then(msg => msg.delete(5000));
+				.then(msg => msg.delete({timeout:5000}));
 
 		let allRoles = message.guild.roles;
 		for (i of allRoles)  message.channel.send(i);			//i.Role.name & i.Role.id

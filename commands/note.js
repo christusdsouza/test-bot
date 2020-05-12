@@ -15,7 +15,7 @@ module.exports = {
 			else var now = message.createdTimestamp;
 			if (now - lastCmdTime <= 5000)
 				return message.reply('OOps! a little bit too quick there, get a hold on your feelings...')
-					.then(msg => msg.delete(3000));
+					.then(msg => msg.delete({timeout:3000}));
 		}
 
 		message.delete().catch(O_o => { });
