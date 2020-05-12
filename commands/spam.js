@@ -1,9 +1,9 @@
 let lastCmdTime;
 module.exports = {
-	alias: "stag",
-	syntax: " <user> <amount>",
-	description: "Annoy that faggot with mass pings [Limit:100]",
-	cooldown: '31s',
+	alias: ["pingspam","pingfs","flood"],
+	syntax: " <user> <amount> /OR/ <text>",
+	description: "Annoy a faggot with mass pings [Limit:100] OR flood the chat",
+	cooldown: '30s',
 	/***
 	 * @params Collection message
 	 * @params Array args; args[0]: GuildMember member, args[1]: int count
@@ -14,7 +14,7 @@ module.exports = {
 				if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
 				else var now = message.createdTimestamp;
 				if (now - lastCmdTime <= 31000)
-					return message.reply('Scoot away dumb bitch, I have some mentions to do...')
+					return message.reply('Scoot away dumb bitch, keep calm in quartini...')
 						.then(msg => msg.delete({timeout:3000}));
 			}
 			if (args.length < 2) return message.reply("You missed some stuff").then(msg => msg.delete({timeout:10000}));
@@ -27,13 +27,15 @@ module.exports = {
 				else return false;
 			});
 			var count = parseInt(args[1]);
-			if (!member) return message.reply(`FFS who is this mf youre trying to ping man !`).then(msg => msg.delete({timeout:10000}));
-			if (isNaN(count) || count >= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({timeout:10000}));
-
-			//Ping starts here
-			message.channel.send("Nuking the PING engine").then(msg => msg.delete({timeout:10000}));
-			for (let i = 0; i < count; i++) {
-				chan.send(args[0]);
+			if (isNaN(count) || count >= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({ timeout: 10000 }));
+			if (member) {
+			//Member Ping starts here
+				message.channel.send("Nuking the PING engine").then(msg => msg.delete({timeout:10000}));
+				loop(chan, count, '<@' + member.user.id + '>');
+			} else {
+			//Text spam starts here
+				message.channel.send("Allahu Akbar in 3 secs...");
+				message.client.setTimeout(loop(messaage.channel, count, args.join(' ')),3);
 			}
 			return message.channel.send("DONE FFS");
 		} catch (error) {
@@ -42,3 +44,6 @@ module.exports = {
 		}
 	}
 };
+function loop(channel,count,content) {
+	for (let i = 0; i < count; i++)  channel.send(content);
+}
