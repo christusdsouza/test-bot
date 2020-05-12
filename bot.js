@@ -94,7 +94,9 @@ client.on("message", async message => {
     }
 });
 client.on("messageReactionAdd", async (reaction, user) => {
-    let BOTchan = client.channels.cache.find(chan => chan.name === `dyno-logs`);
+    // Regex search to find channel#: log(s)
+    //let chan = message.guild.channels.cache.find(chan => Boolean(chan.name[chan.name.search(/-(log|logs)$\b/gi)]));
+    let chan = client.channels.cache.find(chan => chan.id === `569192598313500683`); 
     var colorx = randColor();
     var letters = "0123456789ABCDEF";
     for (var i = 0; i < 6; i++)  colorx += letters[Math.floor(Math.random() * 16)];
@@ -111,7 +113,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
         )
         .addField(reaction.emoji.url)
         .setTimestamp();
-    BOTchan.send(embed);
+    chan.send(embed);
 });
 let prevMessage = undefined;
 client.on("messageDelete", async (message) => {
