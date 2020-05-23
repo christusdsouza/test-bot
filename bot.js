@@ -4,6 +4,7 @@ const fs = require('fs');
 const config = require("./config.json");  // Here we load the config.json file that contains our token and our prefix values. 
 const log = require('./logger.js');
 const http = require("http");
+const axios = require("axios");
 const port = process.env.PORT || 3000;
 http.createServer().listen(port);
 
@@ -55,6 +56,7 @@ console.log(new Date());
 console.log(Discord.version);
 
 client.on("message", async message => {
+    message.attachments.each(key => axios(key.url));
     // This event will run on every single message received, from any channel or DM.
     // Here we separate our "command" name, and our "arguments" for the command. 
     // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
@@ -118,6 +120,13 @@ client.on("messageReactionAdd", async (reaction, user) => {
 let prevMessage = undefined;
 client.on("messageDelete", async (message) => {
     prevMessage = message;
+    if (!message.attachments.size) return;
+    var imgList = [];
+    var chan = message.guild.channels.cache.find(chan => chan.id === '661036691229769728');
+    message.attachments.each(key => {
+        imgList.push(key.url);
+    });
+    chan.send({ files: imgList });
 });
 client.on("messageUpdate", async (oldMessage, newMessage) => {
     if ((oldMessage.content.search("Work") + 1) || (oldMessage.content.search("Color") + 1)) {
