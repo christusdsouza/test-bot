@@ -35,7 +35,7 @@ module.exports = {
 			} else {
 			//Text spam starts here
 				message.channel.send("Allahu Akbar in 3 secs...");
-				message.client.setTimeout(loop(message.channel, count, args.join(' ')),3);
+				message.client.setTimeout(()=>{loop(message.channel, count, args.join(' '))},3);
 			}
 			return message.channel.send("DONE FFS");
 		} catch (error) {
