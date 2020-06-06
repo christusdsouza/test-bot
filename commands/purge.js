@@ -4,6 +4,7 @@ module.exports = {
     syntax: "<amount>",
     description: "Get rid off some messages [Limit:100]",
     cooldown: "5s",
+    perms: "MANAGE_MESSAGES",
     /**
      * Clear messages in bulk. Not messages older than 2 weeks
      * @params {Collection} message

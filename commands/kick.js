@@ -2,6 +2,7 @@ const Discord = require(`discord.js`);
 module.exports = {
     syntax: "<user> <reason>",
     description: "Pest Control? We got ya a bug spray, KICK EM OUT for Good.",
+    perms: "KICK_MEMBERS",
     /**
      * 
      * @param {Collection} message 

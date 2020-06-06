@@ -1,7 +1,7 @@
 let lastCmdTime;
 module.exports = {
 	alias: ["pingspam","pingfs","flood"],
-	syntax: " <user> <amount> /OR/ <text>",
+	syntax: " <user> /OR/ <text> <count>",
 	description: "Annoy a faggot with mass pings [Limit:100] OR flood the chat",
 	cooldown: '30s',
 	/***
@@ -26,8 +26,8 @@ module.exports = {
 				else if (member.user.discriminator === args[0]) return true;
 				else return false;
 			});
-			var count = parseInt(args[1]);
-			if (isNaN(count) || count >= 100) return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({ timeout: 10000 }));
+			var count = parseInt(args.pop());
+			if (isNaN(count) || count >= 100) count  = 1;//return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({ timeout: 10000 }));
 			if (member) {
 			//Member Ping starts here
 				message.channel.send("Nuking the PING engine").then(msg => msg.delete({timeout:10000}));

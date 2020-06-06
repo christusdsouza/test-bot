@@ -5,6 +5,7 @@ module.exports = {
 	alias: ['roles','allroles'],
 	description: "List all roles with ID",
 	cooldown: '1m',
+	perms: "ADMINISTRATOR",
 	execute(message) {
 		if (!message.member.hasPermission(`ADMINISTRATOR`))
 			return ;

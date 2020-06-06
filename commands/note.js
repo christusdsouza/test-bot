@@ -4,6 +4,7 @@ module.exports = {
 	syntax: "<note-message>",
 	description: "Leave a note in the chat for your fellow users",
 	cooldown: '5s',
+	perms: "MANAGE_MESSAGES",
 	/**
  	* TO create proper embeds for important/meaningful notes
  	* @param {Collection} message 

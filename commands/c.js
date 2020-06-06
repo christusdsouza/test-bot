@@ -5,8 +5,11 @@ module.exports = {
 	description: "Call this to clean up bot clutter",
 	alias: 'cls',
 	cooldown: '5s',
+	perms: "MANAGE_MESSAGES",
 	async execute(message, args) {
 		try {
+			if (!message.member.hasPermission(`MANAGE_MESSAGES`))
+				return message.reply("Sorry, you don't have permissions to use this!").then(msg => msg.delete({ timeout: 10000 }));
 			if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 			else  var now = message.createdTimestamp;
 			if (now - lastCmdTime <= 5000) return message.reply(

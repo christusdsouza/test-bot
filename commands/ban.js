@@ -3,11 +3,11 @@ module.exports = {
     syntax: "<user> <reason>",
     description: "Drop that Ban Hammer already !\nNuke the faggot *No reasons needed*",
     alias: ['nuke'],
-    perms: "ADMINISTRATOR",
+    perms: "ADMINISTRATOR, BAN_MEMBERS",
     async execute(message, args) {
         // Most of this command is identical to kick, except that here we'll only let admins do it.
         // In the real world mods could ban too, but this is just an example, right? ;)
-        if (!message.member.hasPermission(`ADMINISTRATOR`))
+        if (!message.member.hasPermission(`ADMINISTRATOR`) || !message.member.hasPermission(`BAN_MEMBERS`))
             return message.reply("Sorry, you don't have permissions to use this!").then(msg => msg.delete({timeout:10000}));
         if (!args.length)
             return message.reply("PPSYCH didnt mention hammer-drop victim...").then(msg => msg.delete({timeout:10000}));
