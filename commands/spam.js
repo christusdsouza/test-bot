@@ -19,7 +19,7 @@ module.exports = {
 			}
 			if (args.length < 2) return message.reply("You missed some stuff").then(msg => msg.delete({timeout:10000}));
 			let chan = message.guild.channels.cache.find(chan => chan.id === `647162352797745172`);
-			let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {
+			let member = message.guild.members.cache.find((member) => {
 				if (member.user.username.toUpperCase() === args[0].toUpperCase()) return true;
 				else if (member.nickname != null && member.nickname.toUpperCase() === args[0].toUpperCase()) return true;
 				else if (member.user.id === args[0]) return true;
