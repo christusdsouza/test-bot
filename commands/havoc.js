@@ -64,13 +64,14 @@ module.exports = {
         }).catch(err => {
             console.error();
             message.reply('Oops, looks like some error occured while fetching your device repo; your device is either missing(??) or sourceforge/havoc is having some issues.\nRest assured, this error has been logged.')
+                .then(msg => msg.delete({timeout: 10000}));
         });
         
         let embed = new MessageEmbed()
             .setTitle(`Havoc-OS for ${devicename}`)
             .setURL(url)
-            .author('[Havoc-OS](https://sourceforge.net/projects/havoc-os/)')
-            .footer('[SOURCEFORGE](https://sourceforge.net/)', 'https://a.fsdn.com/con/img/sandiego/logo-180x180.png')
+            .setAuthor('[Havoc-OS](https://sourceforge.net/projects/havoc-os/)')
+            .setFooter('[SOURCEFORGE](https://sourceforge.net/)', 'https://a.fsdn.com/con/img/sandiego/logo-180x180.png')
             .setTimestamp()
             .setColor('DD6600')
             .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fraw.githubusercontent.com%2FHavoc-OS%2Fandroid_vendor_extras%2Fpie%2FXDA%2FImages%2FHavoc_Logo.png');
