@@ -14,7 +14,7 @@ module.exports = {
 		try {
 			if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 			else  var now = message.createdTimestamp;
-			if (now - lastCmdTime <= 2000)    
+			if ((now - lastCmdTime) <= 2000)    
 				return message.reply(
 					'Cooldown: '+`${new Date(now - lastCmdTime).getSeconds}`+'\nwait, zara sabar karo...')
 						.then(msg => msg.delete({timeout:3000}));

@@ -13,7 +13,7 @@ module.exports = {
 			if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
 				if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
 				else var now = message.createdTimestamp;
-				if (now - lastCmdTime <= 31000)
+				if ((now - lastCmdTime) <= 31000)
 					return message.reply('Scoot away dumb bitch, keep calm in quartini...')
 						.then(msg => msg.delete({timeout:3000}));
 			}

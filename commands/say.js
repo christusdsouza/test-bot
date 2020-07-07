@@ -8,7 +8,7 @@ module.exports = {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
             if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
             else var now = message.createdTimestamp;
-            if (now - lastCmdTime <= 2000)
+            if ((now - lastCmdTime) <= 2000)
                 return message.reply('Looks like you got an awful lot to say @||.....||')
                     .then(msg => msg.delete({timeout:3000}));
         }

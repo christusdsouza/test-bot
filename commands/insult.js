@@ -8,7 +8,7 @@ module.exports = {
 	execute(message, args) {
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 		else  var now = message.createdTimestamp;
-		if (now - lastCmdTime <= 2000)
+		if ((now - lastCmdTime) <= 2000)
 			return message.reply(
 				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +
 				', OOps, a little bit quick there retard, remain in your fucking habitual limit!!!')

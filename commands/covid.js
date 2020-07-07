@@ -11,7 +11,7 @@ module.exports = {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
             if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
             else var now = message.createdTimestamp;
-            if (now - lastCmdTime <= 30000)
+            if ((now - lastCmdTime) <= 30000)
                 return message
                     .reply('Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` + 
                     ', **cough cough** Give me a little break here...')

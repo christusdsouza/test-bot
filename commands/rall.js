@@ -12,7 +12,7 @@ module.exports = {
 
 		if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
 		else var now = message.createdTimestamp;
-		if (now - lastCmdTime <= 60000) 
+		if ((now - lastCmdTime) <= 60000) 
 			return message.reply('This is ILLEGAL, Calm DOWN')
 				.then(msg => msg.delete({timeout:5000}));
 

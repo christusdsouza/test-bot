@@ -15,7 +15,7 @@ module.exports = {
 			
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
 		else  var now = message.createdTimestamp;
-		if (now - lastCmdTime <= 5000) 
+		if ((now - lastCmdTime) <= 5000) 
 			return message.reply(
 				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +
 				'Enough Homo, thats enough of Colors...')
