@@ -2,8 +2,7 @@ const MessageEmbed = require('discord.js').MessageEmbed;
 const cheerio = require('cheerio');
 const axios = require('axios');
 let lastCmdTime;
-const objArr = [];
-let url = "https://sourceforge.net/projects/havoc-os/files/";
+const url = "https://sourceforge.net/projects/havoc-os/files/";
 module.exports = {
     syntax: "<device-name>",
     description: `Get Havoc OS Latest ROM build info. for now its just \`device-name\`(device-codename)\nCan't find your device?\nGoto >> ${url}`,
@@ -16,6 +15,8 @@ module.exports = {
                 'Cooldown: ' + `${new Date((now - lastCmdTime)).getSeconds}` +
                 ', Source Forge be like _Whom\'st\'d\'ve\'nt me\'nt b\'th\'t?_...')
                 .then(msg => msg.delete({ timeout: 3000 }));
+        
+        let deviceurl = url;
         const devicename = args[0].toLowerCase() in ['gsi', 'arm'] ? args.join('').toLowerCase() : args.join('_').toLowerCase();
         switch (devicename) {
             case "gsi64":
@@ -24,7 +25,7 @@ module.exports = {
             case "gsi64ab":
             case "gsiarm64ab":
             case "arm64ab": {
-                url = url + 'arm64-ab/';
+                deviceurl = deviceurl + 'arm64-ab/';
                 break;
             }
             case "gsi64a":
@@ -33,61 +34,57 @@ module.exports = {
             case "gsi64aonly":
             case "gsiarm64aonly":
             case "arm64aonly": {
-                url = url + 'arm64-aonly/'
+                deviceurl = deviceurl + 'arm64-aonly/'
                 break;
             }
             case "gsi32":
             case "arm":
             case "gsiarm32":
             case "arm32": {
-                url = url + 'arm-ab/';
+                deviceurl = deviceurl + 'arm-ab/';
                 break;
             }
             case "gsi32a":
             case "arma":
             case "gsiarm32a":
             case "arm32a": {
-                url = url + 'arm-a/'
+                deviceurl = deviceurl + 'arm-a/'
                 break;
             } 
             default:
-                url = url + devicename + '/';
+                deviceurl = deviceurl + devicename + '/';
         }
-
-        axios.get(url).then(res => {
+        let objArr = [];
+        axios.get(deviceurl).then(res => {
             const $ = cheerio.load(res.data);
-            const result = $('tr.file').text().trim();
-            const stripped = result.replace(/^[\s]+/gm, '').replace(/(downloads)/gm, 'downloads\n').split('\n');
-            for (let i = 0; i < 48; i += 6) {  //fetches-top-3-updates
-                objArr.push(new createObject(stripped[i], stripped[i + 1], stripped[i + 2], stripped[i + 4]));
+            const result = $('tr.file').text().trim().replace(/^[\s]+/gm, '').replace(/(downloads)/gm, 'downloads\n').split('\n');
+            for (let i = 0; i < 24; i += 6) {  //fetches-top-2-updates
+                objArr.push(new createObject(result[i], result[i + 1], result[i + 2], result[i + 4], deviceurl));
             }
+            let embed = new MessageEmbed()
+                .setTitle(`Havoc-OS for ${devicename}`)
+                .setURL(deviceurl)
+                .setAuthor("Havoc-OS","https://a.fsdn.com/allura/p/havoc-os/icon?1589020933?&w=90")
+                .setFooter("SOURCEFORGE projects/havoc-os", "https://a.fsdn.com/con/img/sandiego/logo-180x180.png")
+                .setTimestamp()
+                .setColor('DD6600');
+
+            objArr.forEach(obj => {
+                embed.addField(`${obj.date} || ${obj.name}`,
+                    `Size: ${obj.size} ~₪₪₪~ [${obj.weekdl}](${obj.dlurl})`, false);
+            });
+            message.channel.send(embed);
         }).catch(err => {
-            console.error();
+            console.log(err);
             message.reply('Oops, looks like some error occured while fetching your device repo; your device is either missing(??) or sourceforge/havoc is having some issues.\nRest assured, this error has been logged.')
                 .then(msg => msg.delete({timeout: 10000}));
         });
-        
-        let embed = new MessageEmbed()
-            .setTitle(`Havoc-OS for ${devicename}`)
-            .setURL(url)
-            .setAuthor('[Havoc-OS](https://sourceforge.net/projects/havoc-os/)')
-            .setFooter('[SOURCEFORGE](https://sourceforge.net/)', 'https://a.fsdn.com/con/img/sandiego/logo-180x180.png')
-            .setTimestamp()
-            .setColor('DD6600')
-            .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fraw.githubusercontent.com%2FHavoc-OS%2Fandroid_vendor_extras%2Fpie%2FXDA%2FImages%2FHavoc_Logo.png');
-
-        objArr.forEach(obj => {
-            embed.addField(`${obj.date}   [${obj.name}](${obj.url})`,
-                `Size: ${obj.size}\t${obj.weekdl}`, false);
-        })
-        message.channel.send(embed);
     }
 };
-function createObject(name, date, size, weekdl) {
+function createObject(name, date, size, weekdl, deviceurl) {
     this.name = name;
     this.date = date;
     this.size = size;
     this.weekdl = weekdl;
-    this.url = url + name + '/download/';
-
+    this.dlurl = deviceurl + name + '/download/';
 }
