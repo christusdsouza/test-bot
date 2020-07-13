@@ -13,7 +13,7 @@ module.exports = {
 	async execute(message, args, client) {
 		try {
 			if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
-			else  var now = message.createdTimestamp;
+			else const now = message.createdTimestamp;
 			if ((now - lastCmdTime) <= 2000)    
 				return message.reply(
 					'Cooldown: '+`${new Date(now - lastCmdTime).getSeconds}`+'\nwait, zara sabar karo...')
@@ -29,7 +29,7 @@ module.exports = {
 			if (args[0]) {
 				if (member) {
 					if(member.id===client.user.id || member.user.bot)  return message.reply("Don't simp on me nigga!!!");
-					var text = args.slice(1).join(' ');
+					const text = args.slice(1).join(' ');
 					member.send(text).then(message.delete({timeout:3000}));
 					message.reply("*wink wink* your whisper has travelled overseas successfully")
 						.then(msg => msg.delete({timeout:3000}));

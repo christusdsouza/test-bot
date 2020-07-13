@@ -13,7 +13,7 @@ module.exports = {
 	execute(message, args) {
 		if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
 			if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
-			else var now = message.createdTimestamp;
+			else const now = message.createdTimestamp;
 			if ((now - lastCmdTime) <= 5000)
 				return message.reply(
 					'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +
@@ -31,7 +31,7 @@ module.exports = {
 			else return false;
 		});
 
-		var author, permCheckForCustomAuthor = message.member.hasPermission(`ADMINISTRATOR`) || !message.member.hasPermission(`MANAGE_MESSAGES`);
+		let author, permCheckForCustomAuthor = message.member.hasPermission(`ADMINISTRATOR`) || !message.member.hasPermission(`MANAGE_MESSAGES`);
 		if(member && permCheckForCustomAuthor) {
 			args.shift(); 
 			author = member.user; 

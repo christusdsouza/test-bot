@@ -19,7 +19,7 @@ module.exports = {
                         .then((msg) => msg.delete({ timeout: 10000 }));
 
         if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
-        else var now = message.createdTimestamp;
+        else const now = message.createdTimestamp;
         if ((now - lastCmdTime) <= 5000)
             return message
                 .reply('Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +

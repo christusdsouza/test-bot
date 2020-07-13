@@ -14,19 +14,18 @@ module.exports = {
 			return message.reply("Sorry, you don't have permissions to use this!").then(msg => msg.delete({timeout:10000}));
 			
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
-		else  var now = message.createdTimestamp;
+		else  const now = message.createdTimestamp;
 		if ((now - lastCmdTime) <= 5000) 
 			return message.reply(
 				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +
 				'Enough Homo, thats enough of Colors...')
 					.then(msg => msg.delete({timeout:3000})
 			);
-		var regex = new RegExp()
-		var role = message.guild.roles.cache.find(role => role.name.toUpperCase() === args[0].toUpperCase() || role.id === args[0]);
+		const role = message.guild.roles.cache.find(role => role.name.toUpperCase() === args[0].toUpperCase() || role.id === args[0]);
 		if (role) {
 			
 			role.edit({ color: '0x'+colorx });
-			var embed = new MessageEmbed()
+			let embed = new MessageEmbed()
 				.setColor(colorx)
 				.setDescription("Changed to #" + args[1]);
 			return message.channel.send(embed);

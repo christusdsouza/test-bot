@@ -13,16 +13,14 @@ http.createServer().listen(port);
 // this is what we're refering to. Your client.
 client.commands = new Discord.Collection();
 client.alias = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-    const com = require(`./commands/${file}`);
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file in commandFiles) {
+    const command = require(`./commands/${file}`);
     let commandName = file.split(".").shift().toLowerCase();
-    if (com.alias) {
-        var alias = com.alias.toString();
-        client.alias.set(alias, com);
-    }
-    client.commands.set(commandName, com);
+    if (command.alias) 
+        client.alias.set(command.alias.toString(), command);
+    client.commands.set(commandName, command);
 }
 
 client.on("ready", () => {
@@ -32,9 +30,7 @@ client.on("ready", () => {
     // docs refer to as the "ClientUser".
     client.user.setPresence({
         activity: {
-            name: 'WWV v Tyrants',
-            type: 'STREAMING',
-            url: `https://www.youtube.com/watch?v=q0TjIl7BCE0`,
+            name: 'WWV v Tyrants',type: 'STREAMING',url: `https://www.youtube.com/watch?v=q0TjIl7BCE0`,
         },
         status: 'online',
     });
@@ -62,18 +58,17 @@ client.on("message", async message => {
     // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
     // command = say
     // args = ["Is", "this", "the", "real", "life?"]
-    const prefix = message.content.slice(0, 1);
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(config.prefix.length).trim().split(/[\s]+/g);
     const command = args.shift().toLowerCase();
     //log.execute(message, client, BOTchan);
     if (command === "snipe") {
-        if (prevMessage) return message.channel.send(prevMessage.content);
+        if (prevMessage) return message.channel.send(prevMessage.get(message.channel.id).content);
         else return message.channel.send("Nothing to see here...");
     }
     if (message.author.id == `270904126974590976`) {
         if (message.content.search("Reverse") + 1) {
             var str = message.content.substring(message.content.search('`') + 1, message.content.length - 1);
-            return message.channel.send(reverseString(str));
+            return message.channel.send(str.split('').reverse().join(''));
         }
     }
     // It's good practice to ignore other bots. This also makes your bot ignore itself
@@ -87,59 +82,52 @@ client.on("message", async message => {
         else if (client.alias.has(command))
             client.alias.get(command).execute(message, args, client);
         else
-            message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info')
-                .then(msg => msg.delete({timeout:5000}));
+            message.reply(' Oops Boomer, this command doesnt exist.\n`/cmds` -- for commmand info').then(msg => msg.delete({timeout:5000}));
     } catch (error) {
         console.error(error);
-        message.channel.send('There was an error trying to execute that command!'
-        ).then(msg => msg.delete({timeout:5000}));
+        message.channel.send('There was an error trying to execute that command!').then(msg => msg.delete({timeout:5000}));
     }
 });
 client.on("messageReactionAdd", async (reaction, user) => {
     // Regex search to find channel#: log(s)
     //let chan = message.guild.channels.cache.find(chan => Boolean(chan.name[chan.name.search(/-(log|logs)$\b/gi)]));
     let chan = client.channels.cache.find(chan => chan.id === `569192598313500683`); 
-    var colorx = randColor();
-    var letters = "0123456789ABCDEF";
-    for (var i = 0; i < 6; i++)  colorx += letters[Math.floor(Math.random() * 16)];
     const embed = new Discord.MessageEmbed()
-        .setColor()
+        .setColor(randColor())
         .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
-        .setThumbnail(reaction.message.guild.iconURL)
+        .setThumbnail(reaction.emoji.url)
+        .setTimestamp()
+        .setFooter('', newMember.guild.iconURL())
         .setDescription(
             `**Reason:** A reaction was added\n` +
             `**Channel:** #${reaction.message.channel.name} (${reaction.message.channel.id})\n` +
             `**Message:** (${reaction.message.id})\n` +
             `**Emoji:** ${reaction.emoji.name} (${reaction.emoji.id})\n` +
             `**Message Link:** https://discordapp.com/channels/${reaction.message.channel.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`
-        )
-        .addField(reaction.emoji.url)
-        .setTimestamp();
+        );
     chan.send(embed);
 });
-let prevMessage = undefined;
+
+let prevMessage = new Discord.Collection();
 client.on("messageDelete", async (message) => {
-    prevMessage = message;
+    prevMessage.set(message.channel.id, message);
     if (!message.attachments.size) return;
-    var imgList = [];
-    var chan = message.guild.channels.cache.find(chan => chan.id === '661036691229769728');
+    let [imgList, chan] = [[], message.guild.channels.cache.find(chan => chan.id === '661036691229769728')];
     message.attachments.each(key => {
         imgList.push(key.url);
     });
     chan.send({ files: imgList });
 });
+
 client.on("messageUpdate", async (oldMessage, newMessage) => {
-    if ((oldMessage.content.search("Work") + 1) || (oldMessage.content.search("Color") + 1)) {
-        if (oldMessage.author.id == `270904126974590976`) {
-            if (!oldMessage.content) return;
+    if (((oldMessage.content.search("Work") + 1) || (oldMessage.content.search("Color") + 1)) && oldMessage.author.id == `270904126974590976` && !oldMessage.content) {
             newMessage.channel.send(oldMessage.content);
-        }
     } else return;
 });
+
 client.on("emojiDelete", async (emoji) => {
     //var audits = new GuildAction
-    var colorx = randColor();
-    var chan = emoji.guild.channels.cache.find(chan => chan.id === `569192598313500683`);
+    const chan = emoji.guild.channels.cache.find(chan => chan.id === `569192598313500683`);
     chan.send('Emoji Deleted: ' + emoji + '\nLINK: ' + emoji.url);
 	/*const embed = new Discord.MessageEmbed()
 		.setColor("0x" + colorx)
@@ -157,13 +145,11 @@ client.on("emojiDelete", async (emoji) => {
 		.setFooter('Deleted, RIP',emoji.user_id.avatarURL);
   chan.send(embed);*/
 });
+
 client.on("presenceUpdate", async (oldMember, newMember) => {
     try {
-        var member = oldMember || newMember; // fix for the twice run
-        var chan = member.guild.channels.cache.find(chan => chan.name === 'presence');
-        var oldClientStatus = (JSON.stringify(oldMember.clientStatus)).match(/[^{"}]+/g);
-        var newClientStatus = (JSON.stringify(newMember.clientStatus)).match(/[^{"}]+/g);
-        var oldActivity, newActivity, stringy;
+        const [member, chan, oldClientStatus, newClientStatus] = [(oldMember || newMember), (member.guild.channels.cache.find(chan => chan.name === 'presence')), (JSON.stringify(oldMember.clientStatus)).match(/[^{"}]+/g), (JSON.stringify(newMember.clientStatus)).match(/[^{"}]+/g)];
+        let oldActivity, newActivity, stringy;
         if (oldMember.activities) {
             stringy = JSON.stringify(oldMember.activities[0], replacer(oldMember.activities[0]));
             oldActivity = stringy.match(/[^{"}]+/g).join(' ');
@@ -207,23 +193,18 @@ client.on("presenceUpdate", async (oldMember, newMember) => {
     }*/
 });
 function randColor() {
-    var colorx = "";
-    var letters = "0123456789ABCDEF";
-    for (var i = 0; i < 6; i++)  colorx += letters[Math.floor(Math.random() * 16)];
+    let colorx = "";
+    const letters = "0123456789ABCDEF";
+    for (var i = 0; i < 6; i++)  colorx += letters[Math.floor(Math.random() * letters.length)];
     return ("0x" + colorx);
 }
 function replacer(obj) {
-    var whitelist = [];
+    let whitelist = [];
     for (var key in obj) {
         // Filtering out properties
         if (typeof obj[key] != 'object' && obj[key] != null && isNaN(obj[key]) && key != 'syncID') whitelist.push(key);
     }
     return whitelist;
-}
-function reverseString(str) {
-    var newString = "";
-    for (var i = str.length - 1; i >= 0; i--)  newString += str[i];
-    return newString;
 }
 client.on("error", err => {
     console.log(err.getMessage());

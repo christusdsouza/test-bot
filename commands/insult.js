@@ -7,15 +7,14 @@ module.exports = {
 	description: "Just nuke that faggot already! So dont forget to mention THEM. **Becareful not to hurt yourself** ~experimental~",
 	execute(message, args) {
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
-		else  var now = message.createdTimestamp;
+		else  const now = message.createdTimestamp;
 		if ((now - lastCmdTime) <= 2000)
 			return message.reply(
 				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +
 				', OOps, a little bit quick there retard, remain in your fucking habitual limit!!!')
 					.then(msg => msg.delete({timeout:2000}));
 
-		var len = insult.insult.length;
-		var rand = Math.floor((Math.random() * 10) % len);
+		const rand = Math.floor((Math.random() * 10) % insult.insult.length);
 		if (!args.length) return message.reply(insult.insult[rand]);
 		
 		let member = message.mentions.members.first() || message.guild.members.cache.find((member) => {

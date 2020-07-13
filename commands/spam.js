@@ -12,7 +12,7 @@ module.exports = {
 		try {
 			if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
 				if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
-				else var now = message.createdTimestamp;
+				else const now = message.createdTimestamp;
 				if ((now - lastCmdTime) <= 31000)
 					return message.reply('Scoot away dumb bitch, keep calm in quartini...')
 						.then(msg => msg.delete({timeout:3000}));
@@ -26,8 +26,8 @@ module.exports = {
 				else if (member.user.discriminator === args[0]) return true;
 				else return false;
 			});
-			var count = parseInt(args.pop());
-			if (isNaN(count) || count >= 100) count  = 1;//return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({ timeout: 10000 }));
+			let count = parseInt(args.pop());
+			if (isNaN(count) || count >= 100) count = 1;//return message.reply("Mention a proper count cono within 100").then(msg => msg.delete({ timeout: 10000 }));
 			if (member) {
 			//Member Ping starts here
 				message.channel.send("Nuking the PING engine").then(msg => msg.delete({timeout:10000}));

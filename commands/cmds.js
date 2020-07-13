@@ -8,7 +8,7 @@ const MessageEmbed = require("discord.js").MessageEmbed;
  * @param {Boolean} flagSyntax  true:getSyntax; false:getDescription 
  */
 function getstuff(commands, commandName, flagSyntax = true) { 		
-	var stuff = [];
+	let stuff = [];
 	for (let i = 0; i < commandName.length; i++) {
 		if (flagSyntax) stuff.push(commands.get(commandName[i]).syntax);
 		else stuff.push(commands.get(commandName[i]).description);
@@ -26,23 +26,18 @@ module.exports = {
 	 **/
 	async execute(message, args, client) {
 		try {
-			const panelCmds = new MessageEmbed();
-			const commandName = client.commands.find((name) => {
-				name.alias ? name.alias.includes(args[0]) : false
-			}) || args[0] || Array.from(client.commands.keys());
-
+			const [commandName, syntax, description] = [client.commands.find((name) => {name.alias ? name.alias.includes(args[0]) : false}) || args[0] || Array.from(client.commands.keys()),getstuff(client.commands, commandName, true), getstuff(client.commands, commandName, false)];
+			
 			if (args.length == 1 && client.commands.has(commandName))		//Single Command Check 
 				return commandHelp(message, args, client, panelCmds);
-
-			const syntax = getstuff(client.commands, commandName, true);
-			const description = getstuff(client.commands, commandName, false);
-
-			panelCmds
+			
+			const panelCmds = new MessageEmbed()
 				.setColor('0x' + "0080FF")
 				.setTitle('WWV Bot Command list')
 				.setThumbnail(message.guild.iconURL())
 				.setDescription('Server -prefix `' + '`' + '`~no modification to prefixes due to sever issues~\nFormat:`commandName w/syntax` Info & Description')
 				.setFooter(`*More work to be done AWW MAN !!*`);
+
 			for (let i = 0; i < commandName.length; i++) {
 				if (syntax[i])
 					panelCmds.addField('`' + `${commandName[i]}` + '` ' + `${syntax[i]}`, description[i]);
@@ -58,14 +53,12 @@ module.exports = {
 };
 
 function commandHelp(message, args, client, panelCmds) {
-	var commandName = client.commands.find((name) => {
-		name.alias ? name.alias.includes(args[0]) || name.alias == args[0] : false;
-	}) || args[0];
-	var syntax = client.commands.get(commandName).syntax || "";
-	var description = client.commands.get(commandName).description;
-	var alias = client.commands.get(commandName).alias || null;
-	var perms = client.commands.get(commandName).perms;
-	var cooldown = client.commands.get(commandName).cooldown;
+	const commandName = client.commands.find((name) => { name.alias ? name.alias.includes(args[0]) || name.alias == args[0] : false; }) || args[0];
+	const syntax = client.commands.get(commandName).syntax || "";
+	const description = client.commands.get(commandName).description;
+	const alias = client.commands.get(commandName).alias || null;
+	const perms = client.commands.get(commandName).perms;
+	const cooldown = client.commands.get(commandName).cooldown;
 	panelCmds
 		.setColor('0x' + "0080FF")
 		.setTitle(commandName)
