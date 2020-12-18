@@ -13,7 +13,7 @@ module.exports = {
 	async execute(message, args, client) {
 		try {
 			if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
-			else const now = message.createdTimestamp;
+			else now = message.createdTimestamp;
 			if ((now - lastCmdTime) <= 2000)    
 				return message.reply(
 					'Cooldown: '+`${new Date(now - lastCmdTime).getSeconds}`+'\nwait, zara sabar karo...')

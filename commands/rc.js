@@ -14,7 +14,7 @@ module.exports = {
 			return message.reply("Sorry, you don't have permissions to use this!").then(msg => msg.delete({timeout:10000}));
 			
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
-		else  const now = message.createdTimestamp;
+		else  now = message.createdTimestamp;
 		if ((now - lastCmdTime) <= 5000) 
 			return message.reply(
 				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +

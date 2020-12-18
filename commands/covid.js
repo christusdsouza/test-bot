@@ -10,7 +10,7 @@ module.exports = {
     async execute(message, args, client) {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) {
             if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
-            else const now = message.createdTimestamp;
+            else now = message.createdTimestamp;
             if ((now - lastCmdTime) <= 30000)
                 return message
                     .reply('Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` + 

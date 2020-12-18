@@ -7,7 +7,7 @@ module.exports = {
 	description: "Just nuke that faggot already! So dont forget to mention THEM. **Becareful not to hurt yourself** ~experimental~",
 	execute(message, args) {
 		if (!lastCmdTime)  lastCmdTime = message.createdTimestamp;
-		else  const now = message.createdTimestamp;
+		else  now = message.createdTimestamp;
 		if ((now - lastCmdTime) <= 2000)
 			return message.reply(
 				'Cooldown: ' + `${new Date(now - lastCmdTime).getSeconds}` +

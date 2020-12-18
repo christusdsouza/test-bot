@@ -9,7 +9,7 @@ module.exports = {
     cooldown: '10s',
     execute(message, args) {
         if (!lastCmdTime) lastCmdTime = message.createdTimestamp;
-        else const now = message.createdTimestamp;
+        else now = message.createdTimestamp;
         if ((now - lastCmdTime) <= 10000)
             return message.reply(
                 'Cooldown: ' + `${new Date((now - lastCmdTime)).getSeconds}` +

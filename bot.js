@@ -1,3 +1,5 @@
+const dot = require("dotenv");
+dot.config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require('fs');
@@ -14,8 +16,8 @@ http.createServer().listen(port);
 client.commands = new Discord.Collection();
 client.alias = new Discord.Collection();
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-for (const file in commandFiles) {
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     let commandName = file.split(".").shift().toLowerCase();
     if (command.alias) 
@@ -75,7 +77,8 @@ client.on("message", async message => {
     // and not get into a spam loop (we call that "botception").
     // Also good practice to ignore any message that does not start with our prefix, 
     // which is set in the configuration file.
-    if (config.prefix != prefix) return;
+	
+    if (config.prefix !== message.content.substr(0,config.prefix.length)) return;
     try {
         if (client.commands.has(command))
             client.commands.get(command).execute(message, args, client);
@@ -97,7 +100,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
         .setAuthor(`${user.tag} (${user.id})`, user.avatarURL)
         .setThumbnail(reaction.emoji.url)
         .setTimestamp()
-        .setFooter('', newMember.guild.iconURL())
+        .setFooter('"', newMember.guild.iconURL())
         .setDescription(
             `**Reason:** A reaction was added\n` +
             `**Channel:** #${reaction.message.channel.name} (${reaction.message.channel.id})\n` +
